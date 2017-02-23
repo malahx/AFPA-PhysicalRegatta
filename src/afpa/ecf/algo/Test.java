@@ -6,8 +6,6 @@ package afpa.ecf.algo;
 
 import static org.junit.Assert.*;
 
-import afpa.ecf.physicalregatta.Utils;
-
 /**
  * @author gwenole
  *
