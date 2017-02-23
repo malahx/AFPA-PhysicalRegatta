@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2017 at 12:00 PM
+-- Generation Time: Feb 23, 2017 at 01:19 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.16-2+deb.sury.org~xenial+1
 
@@ -35,7 +35,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `average` (IN `challenge_id` INT)  B
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crews` (IN `sailboat_id` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crews` (IN `regate_id` INT, IN `sailboat_id` INT)  BEGIN
 
 	SELECT p.firstname AS FIRSTNAME, 
 			p.lastname AS LASTNAME 
@@ -46,26 +46,29 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `crews` (IN `sailboat_id` INT)  BEGI
 	    ON e.id = cr.entrant_id
 	    INNER JOIN person p 
 	    ON p.id = e.person_id 
-	    WHERE co.sailboat_id = sailboat_id;
+	    WHERE co.sailboat_id = sailboat_id
+        AND co.regatta_id = regate_id;
     
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAuditorFrom` (IN `challenge_id` INT, IN `date_début` DATETIME, IN `date_fin` DATETIME)  BEGIN
 	
     SELECT r.date AS DATE, 
-		   p.firstname AS AUDITOR_FIRSTNAME, 
-		   p.lastname AS AUDITOR_LASTNAME, 
-		   c.name AS COMMITTEE
-		FROM regatta r
+		   pe.firstname AS AUDITOR_FIRSTNAME, 
+		   pe.lastname AS AUDITOR_LASTNAME, 
+		   co.name AS COMMITTEE
+		FROM panel pa
+        INNER JOIN regatta r
+        ON r.id = pa.regatta_id
 		INNER JOIN auditor a
-		ON a.id = r.auditor_id
-		INNER JOIN person p
-		ON p.id = a.person_id
-		INNER JOIN committee c
-		ON c.id = a.committee_id
-		INNER JOIN challenge cha
-		ON cha.id = r.challenge_id
-		WHERE cha.id = challenge_id
+		ON a.id = pa.auditor_id
+		INNER JOIN person pe
+		ON pe.id = a.person_id
+		INNER JOIN committee co
+		ON co.id = a.committee_id
+		INNER JOIN challenge ch
+		ON ch.id = r.challenge_id
+		WHERE ch.id = challenge_id
 		AND r.date > date_début
 		AND r.date < date_fin;
 
