@@ -30,10 +30,11 @@ END
 
 # Procédure 3
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAuditorFrom`(IN challenge_id INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAuditorFrom`(IN challenge_id INT, IN date_début DATETIME, IN date_fin DATETIME)
 BEGIN
 	
-    SELECT r.date AS DATE, 
+    SELECT r.name AS REGATTA, 
+		r.date AS DATE, 
 		p.firstname AS AUDITOR_FIRSTNAME, 
 		p.lastname AS AUDITOR_LASTNAME, 
 		c.name AS COMMITTEE
@@ -46,6 +47,8 @@ BEGIN
 	ON c.id = a.committee_id
 	INNER JOIN challenge cha
 	ON cha.id = r.challenge_id
-	WHERE cha.id = challenge_id;
+	WHERE cha.id = challenge_id
+    AND r.date > date_début
+    AND r.date < date_fin;
 
 END
