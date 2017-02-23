@@ -36,22 +36,23 @@ END
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAuditorFrom`(IN challenge_id INT, IN date_début DATETIME, IN date_fin DATETIME)
 BEGIN
 	
-    SELECT r.name AS REGATTA, 
-		r.date AS DATE, 
-		p.firstname AS AUDITOR_FIRSTNAME, 
-		p.lastname AS AUDITOR_LASTNAME, 
-		c.name AS COMMITTEE
-	FROM regatta r
-	INNER JOIN auditor a
-	ON a.id = r.auditor_id
-	INNER JOIN person p
-	ON p.id = a.person_id
-	INNER JOIN committee c
-	ON c.id = a.committee_id
-	INNER JOIN challenge cha
-	ON cha.id = r.challenge_id
-	WHERE cha.id = challenge_id
-    AND r.date > date_début
-    AND r.date < date_fin;
+    SELECT r.date AS DATE, 
+		   pe.firstname AS AUDITOR_FIRSTNAME, 
+		   pe.lastname AS AUDITOR_LASTNAME, 
+		   co.name AS COMMITTEE
+		FROM panel pa
+        INNER JOIN regatta r
+        ON r.id = pa.regatta_id
+		INNER JOIN auditor a
+		ON a.id = pa.auditor_id
+		INNER JOIN person pe
+		ON pe.id = a.person_id
+		INNER JOIN committee co
+		ON co.id = a.committee_id
+		INNER JOIN challenge ch
+		ON ch.id = r.challenge_id
+		WHERE ch.id = challenge_id
+		AND r.date > date_début
+		AND r.date < date_fin;
 
 END
