@@ -2,7 +2,7 @@
  * This is free and unencumbered software released into the public domain.
  */
 
-package afpa.ecf.physicalregatta;
+package afpa.ecf.algo;
 
 import java.util.regex.Pattern;
 
@@ -10,8 +10,7 @@ import java.util.regex.Pattern;
  * @author gwenole
  *
  */
-public class Utils {
-    
+public class Algo {
     /**
      * 
      * @param email
@@ -24,7 +23,7 @@ public class Utils {
         // Vérification du nombre de @
         if (e.length == 2) {
             
-            // Inverser l'host
+            // Inverser l'host (nécessaire pour limiter le nombre de split)
             String revHost = new StringBuilder(e[1]).reverse().toString();
             
             // Décomposition des points
@@ -44,5 +43,4 @@ public class Utils {
     public static boolean isEmailReg(String email) {
         return Pattern.matches("^[^@]{2,}?@[^@]{2,}\\.[^@.]{2,}$", email); // Vérification du pattern
     }
-    
 }
