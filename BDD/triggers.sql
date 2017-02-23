@@ -9,7 +9,7 @@ BEGIN
 		SIGNAL SQLSTATE '09000' SET MESSAGE_TEXT = 'Wrong date regatta', MYSQL_ERRNO = 9000;    
     END IF;
     
-	SET NEW.code = newCode(NEW.challenge_id);
+	SET NEW.code = newCode(NEW.challenge_id, NEW.date);
 END
 
 # Triggers de mise à jour
@@ -22,5 +22,16 @@ BEGIN
     SELECT COUNT(r.id) INTO numSailboat FROM register r INNER JOIN sailboat s ON s.id = r.sailboat_id INNER JOIN class c ON c.id = s.class_id WHERE r.regatta_id = OLD.regatta_id AND s.class_id = classSailboat GROUP BY c.id;
     IF numSailboat < NEW.position THEN
 		SIGNAL SQLSTATE '09001' SET MESSAGE_TEXT = 'Wrong position', MYSQL_ERRNO = 9001;
+    END IF;
+END
+
+# Triggers de suppression
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `physicalregatta`.`regatta_BEFORE_DELETE` BEFORE DELETE ON `regatta` FOR EACH ROW
+BEGIN
+    DECLARE chalEnd DATETIME;
+    SELECT end INTO chalEnd FROM challenge WHERE challenge.id = OLD.challenge_id;
+    IF now() < chalEnd THEN
+        SIGNAL SQLSTATE '09002' SET MESSAGE_TEXT = 'Can\'t delete a not finished challenge', MYSQL_ERRNO = 9002;  
     END IF;
 END
