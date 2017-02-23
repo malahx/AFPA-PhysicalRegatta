@@ -11,29 +11,29 @@ GROUP BY c.name
 SELECT p.firstname AS FIRSTNAME, 
 	p.lastname AS LASTNAME, 
 	e.num_licence AS LICENCE
-FROM crew c
+FROM crew cr
 INNER JOIN entrant e
-ON e.id = c.entrant_id
+ON e.id = cr.entrant_id
 INNER JOIN person p
 ON p.id = e.person_id
-INNER JOIN sailboat s
-ON s.id = c.sailboat_id
-INNER JOIN register r
-ON r.sailboat_id = s.id
-WHERE r.regatta_id = 3
+INNER JOIN compete co
+ON co.id = cr.compete_id
+WHERE co.regatta_id = 3
 
 # Requête 3
 
 SELECT r.name AS REGATTA, 
 	r.date AS DATE, 
-	p.firstname AS AUDITOR_FIRSTNAME, 
-	p.lastname AS AUDITOR_LASTNAME, 
+	pe.firstname AS AUDITOR_FIRSTNAME, 
+	pe.lastname AS AUDITOR_LASTNAME, 
 	c.name AS COMMITTEE
-FROM regatta r
+FROM panel pa
 INNER JOIN auditor a
-ON a.id = r.auditor_id
-INNER JOIN person p
-ON p.id = a.person_id
+ON a.id = pa.auditor_id
 INNER JOIN committee c
 ON c.id = a.committee_id
+INNER JOIN person pe
+ON pe.id = a.person_id
+INNER JOIN regatta r
+ON r.id = pa.regatta_id
 WHERE r.date > '2016-02-15 09:00:00'
