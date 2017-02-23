@@ -14,7 +14,7 @@ END
 
 # Procédure 2
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crews`(IN sailboat_id INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crews`(IN regate_id INT, IN sailboat_id INT)
 BEGIN
 
 	SELECT p.firstname AS FIRSTNAME, 
@@ -26,7 +26,8 @@ BEGIN
 	    ON e.id = cr.entrant_id
 	    INNER JOIN person p 
 	    ON p.id = e.person_id 
-	    WHERE co.sailboat_id = sailboat_id;
+	    WHERE co.sailboat_id = sailboat_id
+        AND co.regatta_id = regate_id;
     
 END
 
