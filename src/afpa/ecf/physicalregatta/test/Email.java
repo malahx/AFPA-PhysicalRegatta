@@ -12,6 +12,7 @@ public class Email {
     public void test_isEmail() {
         assertTrue(Utils.isEmail("ab@cd.ef"));
         assertTrue(Utils.isEmail("abcdef@ghij.klmn"));
+        assertTrue(Utils.isEmail("ab@c.f.ef"));
         assertFalse(Utils.isEmail("a@ghij.klmn"));
         assertFalse(Utils.isEmail("ab@c.de"));
         assertFalse(Utils.isEmail("ab@cd.e"));
@@ -25,6 +26,7 @@ public class Email {
     public void test_isEmailReg() {
         assertTrue(Utils.isEmailReg("ab@cd.ef"));
         assertTrue(Utils.isEmailReg("abcdef@ghij.klmn"));
+        assertTrue(Utils.isEmail("ab@c.f.ef"));
         assertFalse(Utils.isEmailReg("a@ghij.klmn"));
         assertFalse(Utils.isEmailReg("ab@c.de"));
         assertFalse(Utils.isEmailReg("ab@cd.e"));

@@ -24,15 +24,14 @@ public class Utils {
         // Vérification du nombre de @
         if (e.length == 2) {
             
-            // décomposition des points
-            String[] f = e[1].split("\\.");
+            // Inverser l'host
+            String revHost = new StringBuilder(e[1]).reverse().toString();
             
-            // Vérification du nombre de point
-            if (f.length > 1) {
-                
-                // Test que toutes les longueurs soient respectée
-                return e[0].length() > 1 && f.length > 1 && f[0].length() > 1 && f[1].length() > 1;
-            }
+            // Décomposition des points
+            String[] f = revHost.split("\\.", 2);
+            
+            // Test que toutes les longueurs soient respectée
+            return e[0].length() > 1 && f.length > 1 && f[0].length() > 1 && f[1].length() > 1;
         }
         return false;
     }
