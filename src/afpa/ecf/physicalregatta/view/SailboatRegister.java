@@ -17,12 +17,13 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author gwenole
  */
-public class SailboatRegister extends javax.swing.JFrame {
+public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Listener {
 
     private static final String PERSISTENCE_UNIT_NAME = "PhysicalRegattaPU";
     private static EntityManagerFactory factory;
@@ -54,6 +55,8 @@ public class SailboatRegister extends javax.swing.JFrame {
         initComponents();
 
         super.setLocationRelativeTo(null);
+
+        checkDatas();
     }
 
     /**
@@ -133,6 +136,7 @@ public class SailboatRegister extends javax.swing.JFrame {
 
         txtSail.setToolTipText("Numéro de voile");
         txtSail.setPreferredSize(new java.awt.Dimension(350, 23));
+        txtSail.getDocument().addDocumentListener(new TxtUpdate(this));
         panContent.add(txtSail);
 
         lblOwner.setText("Propriétaire");
@@ -143,6 +147,11 @@ public class SailboatRegister extends javax.swing.JFrame {
 
         cboOwner.setModel(cboOwnerModel);
         cboOwner.setPreferredSize(new java.awt.Dimension(350, 25));
+        cboOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboOwnerActionPerformed(evt);
+            }
+        });
         panContent.add(cboOwner);
 
         lblSerie.setText("Série");
@@ -153,6 +162,11 @@ public class SailboatRegister extends javax.swing.JFrame {
 
         cboSerie.setModel(cboSerieModel);
         cboSerie.setPreferredSize(new java.awt.Dimension(350, 25));
+        cboSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSerieActionPerformed(evt);
+            }
+        });
         panContent.add(cboSerie);
 
         lblClass.setText("Classe");
@@ -163,6 +177,11 @@ public class SailboatRegister extends javax.swing.JFrame {
 
         cboClass.setModel(cboClassModel);
         cboClass.setPreferredSize(new java.awt.Dimension(350, 25));
+        cboClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboClassActionPerformed(evt);
+            }
+        });
         panContent.add(cboClass);
 
         getContentPane().add(panContent, java.awt.BorderLayout.CENTER);
@@ -176,9 +195,24 @@ public class SailboatRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+        if (!checkDatas()) {
+            return;
+        }
         setVisible(false);
         dispose();
     }//GEN-LAST:event_btnAddMouseClicked
+
+    private void cboOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboOwnerActionPerformed
+        checkDatas();
+    }//GEN-LAST:event_cboOwnerActionPerformed
+
+    private void cboSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSerieActionPerformed
+        checkDatas();
+    }//GEN-LAST:event_cboSerieActionPerformed
+
+    private void cboClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClassActionPerformed
+        checkDatas();
+    }//GEN-LAST:event_cboClassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,4 +275,59 @@ public class SailboatRegister extends javax.swing.JFrame {
         }
         return Arrays.copyOf(sbclass.toArray(), sbclass.size(), Sbclass[].class);
     }
+
+    @Override
+    public void txtEdited() {
+        checkDatas();
+    }
+
+    private boolean checkDatas() {
+        String txt = txtSail.getText();
+        if (txt.isEmpty()) {
+            updateInfo("Veuillez saisir un numéro de voile");
+            return false;
+        }
+        Integer sail = Integer.parseInt(txt);
+        if (sail.equals(0)) {
+            updateInfo("Veuillez saisir un numéro de voile supérieur à 0");
+            return false;
+        }
+        if (cboOwner.getItemCount() == 0) {
+            updateInfo("/!\\ Aucun propriétaire, pensez à en ajouter un sur la page prévue à cet effet !");
+            return false;
+        }
+        if (cboSerie.getItemCount() == 0) {
+            updateInfo("/!\\ Aucune série, pensez à en ajouter une sur la page prévue à cet effet !");
+            return false;
+        }
+        if (cboClass.getItemCount() == 0) {
+            updateInfo("/!\\ Aucune classe, pensez à en ajouter une sur la page prévue à cet effet !");
+            return false;
+        }
+        if (cboOwner.getSelectedIndex() == -1) {
+            updateInfo("Veuillez sélectionner un propriétaire");
+            return false;
+        }
+        if (cboSerie.getSelectedIndex() == -1) {
+            updateInfo("Veuillez sélectionner une série");
+            return false;
+        }
+        if (cboClass.getSelectedIndex() == -1) {
+            updateInfo("Veuillez sélectionner une classe");
+            return false;
+        }
+        updateInfo("");
+        return true;
+    }
+
+    private void updateInfo(String s) {
+        if (s.isEmpty()) {
+            btnAdd.setEnabled(true);
+        } else {
+            btnAdd.setEnabled(false);
+        }
+        txtInfo.setText(s);
+        btnAdd.setToolTipText(s);
+    }
+
 }

@@ -142,6 +142,9 @@
               <Dimension value="[350, 23]"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="txtSail.getDocument().addDocumentListener(new TxtUpdate(this));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblOwner">
           <Properties>
@@ -166,6 +169,9 @@
               <Dimension value="[350, 25]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboOwnerActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Owner&gt;"/>
           </AuxValues>
@@ -193,6 +199,9 @@
               <Dimension value="[350, 25]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboSerieActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Serie&gt;"/>
           </AuxValues>
@@ -220,6 +229,9 @@
               <Dimension value="[350, 25]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboClassActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sbclass&gt;"/>
           </AuxValues>
