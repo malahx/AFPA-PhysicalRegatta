@@ -5,6 +5,7 @@ package afpa.ecf.objet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -17,7 +18,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
+        // Instanciation du jeu d'essai
         Proprietaire pro1 = new Proprietaire("Duchou", "Jean", "jean@duchou.fr", 1965);
         Proprietaire pro2 = new Proprietaire("Duduche", "Fred", "fred@duduche.fr", 1955);
         Proprietaire pro3 = new Proprietaire("Kikoo", "Pierre", "pierre@kikoo.fr", 1945);
@@ -25,15 +27,28 @@ public class Main {
         Licencie lic2 = new Licencie("Thomson", "Alex", "alex@thomson.uk", 1974, 123457, 2017, 0);
         Licencie lic3 = new Licencie("Beyou", "Jérémie", "jeremie@beyou.fr", 1976, 123458, 2017, 0);
         Commissaire com = new Commissaire("Squarcini", "Bernard", "bernard@squarcini.fr", 1955, "Corse");
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(2017, 01, 01);
         
+        Calendar cal2 = Calendar.getInstance();
+        cal2.set(1917, 01, 01);
+        
+        // Test de la méthode calculPoints
         try {
-            lic1.calculPoints(100, 2017);
-            lic1.calculPoints(50, 2017);
-            lic1.calculPoints(100, 1917);
+            lic1.calculPoints(100, cal1);
+            lic1.calculPoints(50, cal1);
         } catch (Exception e) {
             System.out.println(e);
         }
         
+        try {
+            lic1.calculPoints(100, cal2);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        // Ajout du jeu d'essai dans une collection
         List<Personne> personnes = new ArrayList<>();
         personnes.add(pro1);
         personnes.add(pro2);
@@ -42,15 +57,22 @@ public class Main {
         personnes.add(lic2);
         personnes.add(lic3);
         personnes.add(com);
-        
+
+        // Affichage de la collection
         for (Personne p : personnes) {
             System.out.println(p);
         }
-        
-        System.out.println("Moyenne d'age : " + moyAge(personnes));
-        System.out.println("Médiane d'age : " + medAge(personnes));
+
+        // Calcul de l'age moyen et de l'age médian
+        System.out.println("Age moyen : " + moyAge(personnes));
+        System.out.println("Age médian : " + medAge(personnes));
     }
-    
+
+    /***
+     * 
+     * @param personnes
+     * @return l'age moyen
+     */
     public static double moyAge(List<Personne> personnes) {
         double ageTot = 0;
         for (Personne p : personnes) {
@@ -58,21 +80,33 @@ public class Main {
         }
         return ageTot / personnes.size();
     }
-    
+
+    /***
+     * 
+     * @param personnes
+     * @return l'age médian
+     */
     public static double medAge(List<Personne> personnes) {
-        int[] ages = new int[personnes.size()];
         
-        for (int i = personnes.size() -1; i >= 0; i--) {
+        // Passage en tableau d'age
+        int[] ages = new int[personnes.size()];
+
+        for (int i = personnes.size() - 1; i >= 0; i--) {
             ages[i] = personnes.get(i).getAge();
         }
-        Arrays.sort(ages);
-        int demi = ages.length / 2;
         
-        if (ages.length%2 == 1) {
-            return ages[demi];
+        // Tirage des ages
+        Arrays.sort(ages);
+        
+        // Récupération de l'index du milieu
+        int i = ages.length / 2;
+
+        // Calcul de l'age médian
+        if (ages.length % 2 == 1) {
+            return ages[i];
         } else {
-            return (ages[demi-1] + ages[demi]) / 2.0;
+            return (ages[i - 1] + ages[i]) / 2.0;
         }
     }
-    
+
 }

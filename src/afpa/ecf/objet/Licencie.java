@@ -1,5 +1,7 @@
 package afpa.ecf.objet;
 
+import java.util.Calendar;
+
 public class Licencie extends Personne {
 
     int numLicence, anneeLicence;
@@ -12,8 +14,9 @@ public class Licencie extends Personne {
         this.pointsFFV = pointsFFV;
     }
     
-    public void calculPoints(int nombre, int annee) throws Exception {
-        if (anneeLicence != annee) {
+    public void calculPoints(int nombre, Calendar cal) throws Exception {
+        if (anneeLicence != cal.get(Calendar.YEAR)) {
+            System.out.println(cal.get(Calendar.YEAR));
             throw new Exception();
         }
         pointsFFV += nombre;
