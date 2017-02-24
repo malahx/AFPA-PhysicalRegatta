@@ -68,7 +68,6 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToggleButton1 = new javax.swing.JToggleButton();
         panFooter = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -82,8 +81,6 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         cboSerie = new javax.swing.JComboBox<>();
         lblClass = new javax.swing.JLabel();
         cboClass = new javax.swing.JComboBox<>();
-
-        jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un voilier");
@@ -257,7 +254,6 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     private javax.swing.JComboBox<Sbclass> cboClass;
     private javax.swing.JComboBox<Owner> cboOwner;
     private javax.swing.JComboBox<Serie> cboSerie;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblClass;
     private javax.swing.JLabel lblOwner;
     private javax.swing.JLabel lblSail;
