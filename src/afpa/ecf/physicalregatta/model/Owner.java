@@ -113,7 +113,7 @@ public class Owner implements Serializable {
 
     @Override
     public String toString() {
-        return "afpa.ecf.physicalregatta.model.Owner[ id=" + id + " ]";
+        return personId.toString();
     }
     
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2017 at 01:19 PM
+-- Generation Time: Feb 24, 2017 at 11:54 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.16-2+deb.sury.org~xenial+1
 
@@ -147,36 +147,6 @@ CREATE TABLE `challenge` (
 INSERT INTO `challenge` (`id`, `code`, `name`, `begin`, `end`) VALUES
 (1, 'CHHI', 'Challenge d\'hiver', '2016-11-01 00:00:00', '2017-03-31 23:59:59'),
 (2, 'CHET', 'Challenge d\'été', '2017-05-01 00:00:00', '2017-09-30 23:59:59');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `class`
---
-
-CREATE TABLE `class` (
-  `id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
-  `coef` float NOT NULL,
-  `serie_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `class`
---
-
-INSERT INTO `class` (`id`, `name`, `coef`, `serie_id`) VALUES
-(1, 'Corsaire', 1, 1),
-(2, 'Surprise', 1, 1),
-(3, '8 mètres', 1, 1),
-(4, 'Maraudeur', 1, 1),
-(5, 'Figaro', 1, 1),
-(6, 'Flying Fifteen', 1, 2),
-(7, 'Soling', 1, 2),
-(8, 'Star', 1, 2),
-(9, 'Tempest', 1, 2),
-(10, 'Yngling', 1, 2),
-(11, '5.5', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -604,6 +574,36 @@ INSERT INTO `sailboat` (`id`, `num_sail`, `owner_id`, `class_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sbclass`
+--
+
+CREATE TABLE `sbclass` (
+  `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `coef` float NOT NULL,
+  `serie_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sbclass`
+--
+
+INSERT INTO `sbclass` (`id`, `name`, `coef`, `serie_id`) VALUES
+(1, 'Corsaire', 1, 1),
+(2, 'Surprise', 1, 1),
+(3, '8 mètres', 1, 1),
+(4, 'Maraudeur', 1, 1),
+(5, 'Figaro', 1, 1),
+(6, 'Flying Fifteen', 1, 2),
+(7, 'Soling', 1, 2),
+(8, 'Star', 1, 2),
+(9, 'Tempest', 1, 2),
+(10, 'Yngling', 1, 2),
+(11, '5.5', 1, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `secretary`
 --
 
@@ -663,13 +663,6 @@ ALTER TABLE `board`
 --
 ALTER TABLE `challenge`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `class`
---
-ALTER TABLE `class`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `serie_id` (`serie_id`);
 
 --
 -- Indexes for table `club`
@@ -763,6 +756,13 @@ ALTER TABLE `sailboat`
   ADD KEY `sailboat_class` (`class_id`);
 
 --
+-- Indexes for table `sbclass`
+--
+ALTER TABLE `sbclass`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `serie_id` (`serie_id`);
+
+--
 -- Indexes for table `secretary`
 --
 ALTER TABLE `secretary`
@@ -791,11 +791,6 @@ ALTER TABLE `auditor`
 ALTER TABLE `challenge`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `class`
---
-ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
 -- AUTO_INCREMENT for table `club`
 --
 ALTER TABLE `club`
@@ -809,7 +804,7 @@ ALTER TABLE `committee`
 -- AUTO_INCREMENT for table `compete`
 --
 ALTER TABLE `compete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `entrant`
 --
@@ -846,6 +841,11 @@ ALTER TABLE `report`
 ALTER TABLE `sailboat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
+-- AUTO_INCREMENT for table `sbclass`
+--
+ALTER TABLE `sbclass`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
 -- AUTO_INCREMENT for table `secretary`
 --
 ALTER TABLE `secretary`
@@ -872,12 +872,6 @@ ALTER TABLE `auditor`
 ALTER TABLE `board`
   ADD CONSTRAINT `board_jury` FOREIGN KEY (`jury_id`) REFERENCES `jury` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `board_regatta` FOREIGN KEY (`regatta_id`) REFERENCES `regatta` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `class`
---
-ALTER TABLE `class`
-  ADD CONSTRAINT `class_serie` FOREIGN KEY (`serie_id`) REFERENCES `serie` (`id`);
 
 --
 -- Constraints for table `compete`
@@ -931,8 +925,14 @@ ALTER TABLE `regatta`
 -- Constraints for table `sailboat`
 --
 ALTER TABLE `sailboat`
-  ADD CONSTRAINT `sailboat_class` FOREIGN KEY (`class_id`) REFERENCES `class` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `sailboat_class` FOREIGN KEY (`class_id`) REFERENCES `sbclass` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `sailboat_owner` FOREIGN KEY (`owner_id`) REFERENCES `owner` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sbclass`
+--
+ALTER TABLE `sbclass`
+  ADD CONSTRAINT `class_serie` FOREIGN KEY (`serie_id`) REFERENCES `serie` (`id`);
 
 --
 -- Constraints for table `secretary`

@@ -44,7 +44,7 @@ public class Serie implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "serieId")
-    private Collection<Class> classCollection;
+    private Collection<Sbclass> sbclassCollection;
 
     public Serie() {
     }
@@ -75,12 +75,12 @@ public class Serie implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Class> getClassCollection() {
-        return classCollection;
+    public Collection<Sbclass> getSbclassCollection() {
+        return sbclassCollection;
     }
 
-    public void setClassCollection(Collection<Class> classCollection) {
-        this.classCollection = classCollection;
+    public void setSbclassCollection(Collection<Sbclass> sbclassCollection) {
+        this.sbclassCollection = sbclassCollection;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Serie implements Serializable {
 
     @Override
     public String toString() {
-        return "afpa.ecf.physicalregatta.model.Serie[ id=" + id + " ]";
+        return name;
     }
     
 }

@@ -49,7 +49,7 @@ public class Sailboat implements Serializable {
     private Collection<Compete> competeCollection;
     @JoinColumn(name = "class_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Class classId;
+    private Sbclass classId;
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Owner ownerId;
@@ -91,11 +91,11 @@ public class Sailboat implements Serializable {
         this.competeCollection = competeCollection;
     }
 
-    public Class getClassId() {
+    public Sbclass getClassId() {
         return classId;
     }
 
-    public void setClassId(Class classId) {
+    public void setClassId(Sbclass classId) {
         this.classId = classId;
     }
 

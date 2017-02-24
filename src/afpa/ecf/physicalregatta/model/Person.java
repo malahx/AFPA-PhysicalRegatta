@@ -181,7 +181,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "afpa.ecf.physicalregatta.model.Person[ id=" + id + " ]";
+        return firstname + " " + lastname;
     }
     
 }

@@ -28,14 +28,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gwenole
  */
 @Entity
-@Table(name = "class")
+@Table(name = "sbclass")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Class.findAll", query = "SELECT c FROM Class c")
-    , @NamedQuery(name = "Class.findById", query = "SELECT c FROM Class c WHERE c.id = :id")
-    , @NamedQuery(name = "Class.findByName", query = "SELECT c FROM Class c WHERE c.name = :name")
-    , @NamedQuery(name = "Class.findByCoef", query = "SELECT c FROM Class c WHERE c.coef = :coef")})
-public class Class implements Serializable {
+    @NamedQuery(name = "Sbclass.findAll", query = "SELECT s FROM Sbclass s")
+    , @NamedQuery(name = "Sbclass.findById", query = "SELECT s FROM Sbclass s WHERE s.id = :id")
+    , @NamedQuery(name = "Sbclass.findByName", query = "SELECT s FROM Sbclass s WHERE s.name = :name")
+    , @NamedQuery(name = "Sbclass.findByCoef", query = "SELECT s FROM Sbclass s WHERE s.coef = :coef")})
+public class Sbclass implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,14 +55,14 @@ public class Class implements Serializable {
     @ManyToOne(optional = false)
     private Serie serieId;
 
-    public Class() {
+    public Sbclass() {
     }
 
-    public Class(Integer id) {
+    public Sbclass(Integer id) {
         this.id = id;
     }
 
-    public Class(Integer id, String name, float coef) {
+    public Sbclass(Integer id, String name, float coef) {
         this.id = id;
         this.name = name;
         this.coef = coef;
@@ -119,10 +119,10 @@ public class Class implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Class)) {
+        if (!(object instanceof Sbclass)) {
             return false;
         }
-        Class other = (Class) object;
+        Sbclass other = (Sbclass) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -131,7 +131,7 @@ public class Class implements Serializable {
 
     @Override
     public String toString() {
-        return "afpa.ecf.physicalregatta.model.Class[ id=" + id + " ]";
+        return name;
     }
     
 }

@@ -5,17 +5,55 @@
  */
 package afpa.ecf.physicalregatta.view;
 
+import afpa.ecf.physicalregatta.model.Owner;
+import afpa.ecf.physicalregatta.model.Sbclass;
+import afpa.ecf.physicalregatta.model.Serie;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author gwenole
  */
 public class SailboatRegister extends javax.swing.JFrame {
 
+    private static final String PERSISTENCE_UNIT_NAME = "PhysicalRegattaPU";
+    private static EntityManagerFactory factory;
+
+    private final ComboBoxModel<Owner> cboOwnerModel;
+    private final ComboBoxModel<Serie> cboSerieModel;
+    private final ComboBoxModel<Sbclass> cboClassModel;
+
     /**
      * Creates new form SailboatRegister
      */
     public SailboatRegister() {
+
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+
+        Query qOwner = em.createNamedQuery("Owner.findAll");
+        Query qSerie = em.createNamedQuery("Serie.findAll");
+        Query qSbclass = em.createNamedQuery("Sbclass.findAll");
+
+        List<Owner> owners = qOwner.getResultList();
+        List<Serie> series = qSerie.getResultList();
+        List<Sbclass> sailboatClass = qSbclass.getResultList();
+
+        cboOwnerModel = new DefaultComboBoxModel(owners.toArray());
+        cboSerieModel = new DefaultComboBoxModel(series.toArray());
+        cboClassModel = new DefaultComboBoxModel(filterClassBy(sailboatClass, series.get(0)));
+
         initComponents();
+
+        super.setLocationRelativeTo(null);
     }
 
     /**
@@ -47,17 +85,34 @@ public class SailboatRegister extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un voilier");
         setAutoRequestFocus(false);
+        setMaximumSize(new java.awt.Dimension(540, 230));
+        setMinimumSize(new java.awt.Dimension(540, 230));
+        setPreferredSize(new java.awt.Dimension(540, 230));
         getContentPane().setLayout(new java.awt.BorderLayout(10, 10));
 
         panFooter.setLayout(new java.awt.BorderLayout(10, 10));
 
         btnClose.setText("Fermer");
+        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCloseMouseClicked(evt);
+            }
+        });
         panFooter.add(btnClose, java.awt.BorderLayout.CENTER);
 
         btnAdd.setText("Ajouter");
+        btnAdd.setToolTipText("Veuillez saisir un numéro de voile");
+        btnAdd.setEnabled(false);
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddMouseClicked(evt);
+            }
+        });
         panFooter.add(btnAdd, java.awt.BorderLayout.LINE_END);
 
         txtInfo.setEditable(false);
+        txtInfo.setText("Veuillez saisir un numéro de voile");
+        txtInfo.setToolTipText("");
         txtInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtInfo.setPreferredSize(new java.awt.Dimension(505, 23));
         panFooter.add(txtInfo, java.awt.BorderLayout.PAGE_END);
@@ -86,7 +141,7 @@ public class SailboatRegister extends javax.swing.JFrame {
         lblOwner.setPreferredSize(new java.awt.Dimension(150, 15));
         panContent.add(lblOwner);
 
-        cboOwner.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboOwner.setModel(cboOwnerModel);
         cboOwner.setPreferredSize(new java.awt.Dimension(350, 25));
         panContent.add(cboOwner);
 
@@ -96,7 +151,7 @@ public class SailboatRegister extends javax.swing.JFrame {
         lblSerie.setPreferredSize(new java.awt.Dimension(150, 15));
         panContent.add(lblSerie);
 
-        cboSerie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboSerie.setModel(cboSerieModel);
         cboSerie.setPreferredSize(new java.awt.Dimension(350, 25));
         panContent.add(cboSerie);
 
@@ -106,7 +161,7 @@ public class SailboatRegister extends javax.swing.JFrame {
         lblClass.setPreferredSize(new java.awt.Dimension(150, 15));
         panContent.add(lblClass);
 
-        cboClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboClass.setModel(cboClassModel);
         cboClass.setPreferredSize(new java.awt.Dimension(350, 25));
         panContent.add(cboClass);
 
@@ -114,6 +169,16 @@ public class SailboatRegister extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_btnAddMouseClicked
 
     /**
      * @param args the command line arguments
@@ -153,9 +218,9 @@ public class SailboatRegister extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClose;
-    private javax.swing.JComboBox<String> cboClass;
-    private javax.swing.JComboBox<String> cboOwner;
-    private javax.swing.JComboBox<String> cboSerie;
+    private javax.swing.JComboBox<Sbclass> cboClass;
+    private javax.swing.JComboBox<Owner> cboOwner;
+    private javax.swing.JComboBox<Serie> cboSerie;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblClass;
     private javax.swing.JLabel lblOwner;
@@ -166,4 +231,14 @@ public class SailboatRegister extends javax.swing.JFrame {
     private javax.swing.JTextField txtInfo;
     private javax.swing.JTextField txtSail;
     // End of variables declaration//GEN-END:variables
+
+    private Sbclass[] filterClassBy(List<Sbclass> sailboatClass, Serie serie) {
+        List<Sbclass> sbclass = new ArrayList<>();
+        for (Sbclass c : sailboatClass) {
+            if (c.getSerieId().getId().equals(serie.getId())) {
+                sbclass.add(c);
+            }
+        }
+        return Arrays.copyOf(sbclass.toArray(), sbclass.size(), Sbclass[].class);
+    }
 }
