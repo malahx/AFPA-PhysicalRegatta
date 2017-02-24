@@ -6,6 +6,7 @@
 package afpa.ecf.physicalregatta.view;
 
 import afpa.ecf.physicalregatta.model.Owner;
+import afpa.ecf.physicalregatta.model.Sailboat;
 import afpa.ecf.physicalregatta.model.Sbclass;
 import afpa.ecf.physicalregatta.model.Serie;
 import java.util.ArrayList;
@@ -197,6 +198,16 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         if (!checkDatas()) {
             return;
         }
+        
+        Sailboat s = new Sailboat(null, Integer.parseInt(txtSail.getText()));
+        s.setOwnerId((Owner) cboOwnerModel.getSelectedItem());
+        s.setClassId((Sbclass) cboClassModel.getSelectedItem());
+        
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(s);
+        em.getTransaction().commit();   
+        
         setVisible(false);
         dispose();
     }//GEN-LAST:event_btnAddMouseClicked
