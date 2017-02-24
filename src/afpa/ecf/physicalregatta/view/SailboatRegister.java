@@ -114,7 +114,6 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         panFooter.add(btnAdd, java.awt.BorderLayout.LINE_END);
 
         txtInfo.setEditable(false);
-        txtInfo.setText("Veuillez saisir un numéro de voile");
         txtInfo.setToolTipText("");
         txtInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtInfo.setPreferredSize(new java.awt.Dimension(505, 23));
@@ -134,7 +133,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         lblSail.setPreferredSize(new java.awt.Dimension(150, 15));
         panContent.add(lblSail);
 
-        txtSail.setToolTipText("Numéro de voile");
+        txtSail.setToolTipText("Veuillez saisir un numéro de voile");
         txtSail.setPreferredSize(new java.awt.Dimension(350, 23));
         txtSail.getDocument().addDocumentListener(new TxtUpdate(this));
         panContent.add(txtSail);
@@ -146,6 +145,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         panContent.add(lblOwner);
 
         cboOwner.setModel(cboOwnerModel);
+        cboOwner.setToolTipText("Veuillez sélectionner un propriétaire");
         cboOwner.setPreferredSize(new java.awt.Dimension(350, 25));
         cboOwner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +161,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         panContent.add(lblSerie);
 
         cboSerie.setModel(cboSerieModel);
+        cboSerie.setToolTipText("Veuillez sélectionner une série");
         cboSerie.setPreferredSize(new java.awt.Dimension(350, 25));
         cboSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +177,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         panContent.add(lblClass);
 
         cboClass.setModel(cboClassModel);
+        cboClass.setToolTipText("Veuillez sélectionner une classe");
         cboClass.setPreferredSize(new java.awt.Dimension(350, 25));
         cboClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
