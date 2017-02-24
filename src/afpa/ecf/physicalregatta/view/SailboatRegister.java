@@ -33,7 +33,10 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     // Model des ComboBox
     private final ComboBoxModel<Owner> cboOwnerModel;
     private final ComboBoxModel<Serie> cboSerieModel;
-    private final ComboBoxModel<Sbclass> cboClassModel;
+    private ComboBoxModel<Sbclass> cboClassModel;
+    
+    // Liste des classes complète
+    List<Sbclass> sailboatClass;
 
     /**
      * Creates new form SailboatRegister
@@ -51,7 +54,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
 
         List<Owner> owners = qOwner.getResultList();
         List<Serie> series = qSerie.getResultList();
-        List<Sbclass> sailboatClass = qSbclass.getResultList();
+        sailboatClass = qSbclass.getResultList();
 
         cboOwnerModel = new DefaultComboBoxModel(owners.toArray());
         cboSerieModel = new DefaultComboBoxModel(series.toArray());
@@ -245,6 +248,9 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
      */
     private void cboSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSerieActionPerformed
         checkDatas();
+        if (cboSerieModel.getSelectedItem() != null) {
+            cboClassModel = new DefaultComboBoxModel(filterClassBy(sailboatClass, (Serie) cboSerieModel.getSelectedItem()));
+        }
     }//GEN-LAST:event_cboSerieActionPerformed
 
     /***
