@@ -18,7 +18,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextField;
 
 /**
  *
