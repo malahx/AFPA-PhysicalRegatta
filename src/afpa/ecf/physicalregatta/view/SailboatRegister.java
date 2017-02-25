@@ -18,6 +18,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +34,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     private final ComboBoxModel<Owner> cboOwnerModel;
     private final ComboBoxModel<Serie> cboSerieModel;
     private ComboBoxModel<Sbclass> cboClassModel;
-    
+
     // Liste des classes complète
     List<Sbclass> sailboatClass;
 
@@ -198,52 +199,57 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
 
     /**
      * Fermer la fenêtre
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         setVisible(false);
         dispose();
     }//GEN-LAST:event_btnCloseMouseClicked
 
-    /***
+    /**
+     * *
      * Ajouter un voilier dans la base de donnée
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         if (!checkDatas()) {
             return;
         }
-        
+
         Sailboat s = new Sailboat(null, Integer.parseInt(txtSail.getText()));
         s.setOwnerId((Owner) cboOwnerModel.getSelectedItem());
         s.setClassId((Sbclass) cboClassModel.getSelectedItem());
-        
+
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(s);
-        em.getTransaction().commit();   
-        
+        em.getTransaction().commit();
+
         setVisible(false);
         dispose();
+
+        JOptionPane.showMessageDialog(this, "Le voilier a bien été ajouté.");
     }//GEN-LAST:event_btnAddMouseClicked
 
-    /***
-     * 
+    /**
+     * *
+     *
      * Sélection d'un propriétaire
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void cboOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboOwnerActionPerformed
         checkDatas();
     }//GEN-LAST:event_cboOwnerActionPerformed
 
-    /***
-     * 
+    /**
+     * *
+     *
      * Sélection d'une série
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void cboSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSerieActionPerformed
         checkDatas();
@@ -252,11 +258,12 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         }
     }//GEN-LAST:event_cboSerieActionPerformed
 
-    /***
-     * 
+    /**
+     * *
+     *
      * Sélection d'une classe
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void cboClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClassActionPerformed
         checkDatas();
@@ -313,13 +320,14 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     private javax.swing.JTextField txtSail;
     // End of variables declaration//GEN-END:variables
 
-    /***
-     * 
+    /**
+     * *
+     *
      * Filtrer les classes en fonction de la série
-     * 
+     *
      * @param sailboatClass liste des classes de voilier
      * @param serie la série de voilier sélectionnée
-     * @return 
+     * @return
      */
     private Sbclass[] filterClassBy(List<Sbclass> sailboatClass, Serie serie) {
         List<Sbclass> sbclass = new ArrayList<>();
@@ -331,20 +339,22 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         return Arrays.copyOf(sbclass.toArray(), sbclass.size(), Sbclass[].class);
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * Evènement appelé lors d'une modification d'un champ texte
-     * 
+     *
      */
     @Override
     public void txtEdited() {
         checkDatas();
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * Vérification des données
-     * 
+     *
      * @return true si les données sont valides
      */
     private boolean checkDatas() {
@@ -386,11 +396,12 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         return true;
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * Mettre à jour les informations d'erreur de saisie
-     * 
-     * @param s 
+     *
+     * @param s
      */
     private void updateInfo(String s) {
         if (s.isEmpty()) {
