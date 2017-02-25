@@ -1,6 +1,29 @@
+# maven noise
+target/
+
+# Maven plugins noise
+dependency-reduced-pom.xml
+pom.xml.versionsBackup
+
+# gradle noise
+.gradle
+
+# osx noise
+.DS_Store
+profile
+
+# Temp work
 .inwork
+
+# Sublime Text
 physicalregatta.sublime-workspace
+
+# Netbeans
 nbproject/private/
-/bin/
+
+# Eclipse
 .classpath
+
+# Build
+/bin/
 /build/
