@@ -94,9 +94,9 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ajouter un voilier");
         setAutoRequestFocus(false);
-        setMaximumSize(new java.awt.Dimension(540, 230));
+        setMaximumSize(new java.awt.Dimension(600, 550));
         setMinimumSize(new java.awt.Dimension(540, 230));
-        setPreferredSize(new java.awt.Dimension(540, 230));
+        setPreferredSize(new java.awt.Dimension(600, 300));
         getContentPane().setLayout(new java.awt.BorderLayout(10, 10));
 
         panFooter.setLayout(new java.awt.BorderLayout(10, 10));
@@ -205,6 +205,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         setVisible(false);
         dispose();
+        System.out.println("btnCloseMouseClicked");
     }//GEN-LAST:event_btnCloseMouseClicked
 
     /**
@@ -231,6 +232,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         dispose();
 
         JOptionPane.showMessageDialog(this, "Le voilier a bien été ajouté.");
+        System.out.println("btnAddMouseClicked");
     }//GEN-LAST:event_btnAddMouseClicked
 
     /**
@@ -242,6 +244,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
      */
     private void cboOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboOwnerActionPerformed
         checkDatas();
+        System.out.println("cboOwnerActionPerformed");
     }//GEN-LAST:event_cboOwnerActionPerformed
 
     /**
@@ -255,7 +258,9 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         checkDatas();
         if (cboSerieModel.getSelectedItem() != null) {
             cboClassModel = new DefaultComboBoxModel(filterClassBy(sailboatClass, (Serie) cboSerieModel.getSelectedItem()));
+            cboClass.setModel(cboClassModel);
         }
+        System.out.println("cboSerieActionPerformed");
     }//GEN-LAST:event_cboSerieActionPerformed
 
     /**
@@ -267,6 +272,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
      */
     private void cboClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClassActionPerformed
         checkDatas();
+        System.out.println("cboClassActionPerformed");
     }//GEN-LAST:event_cboClassActionPerformed
 
     /**
@@ -348,6 +354,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     @Override
     public void txtEdited() {
         checkDatas();
+        System.out.println("txtEdited");
     }
 
     /**
