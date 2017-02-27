@@ -492,7 +492,7 @@ CREATE TRIGGER `regatta_BEFORE_DELETE` BEFORE DELETE ON `regatta` FOR EACH ROW B
 	DECLARE chalEnd DATETIME;
     SELECT end INTO chalEnd FROM challenge WHERE challenge.id = OLD.challenge_id;
     IF now() < chalEnd THEN
-		SIGNAL SQLSTATE '09002' SET MESSAGE_TEXT = 'Can't delete a not finished challenge', MYSQL_ERRNO = 9002;  
+		SIGNAL SQLSTATE '09002' SET MESSAGE_TEXT = 'Can not delete a not finished challenge', MYSQL_ERRNO = 9002;  
     END IF;
 END
 $$
