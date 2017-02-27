@@ -27,3 +27,6 @@ nbproject/private/
 # Build
 /bin/
 /build/
+
+# Dist
+src/META-INF/persistence.xml
