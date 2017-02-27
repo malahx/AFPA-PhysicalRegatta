@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Root resource (exposed at "routes" path)
  */
-@Path("regattas")
+@Path("regatta")
 public class Regattas {
     
     // Persistance
@@ -39,7 +39,7 @@ public class Regattas {
         Query qRegatta = em.createNamedQuery("Regatta.findAll");
 
         List<Regatta> regattas = qRegatta.getResultList();
-        
+
         return regattas;
     }
 }
