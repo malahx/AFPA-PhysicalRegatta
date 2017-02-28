@@ -3,4 +3,110 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/lbl_regatta"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblRegatta"
+            android:layout_weight="1"
+            android:layout_width="150dp" />
+
+        <TextView
+            android:text="regatta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtRegatta"
+            android:layout_weight="1"
+            android:textStyle="normal|bold"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/lbl_serie"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblSerie"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spnSerie"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/lbl_class"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblClass"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spnClass"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:text="@string/lbl_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblResult"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/num_sail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblNumSail"
+            android:layout_weight="1"
+            android:textStyle="normal|italic" />
+
+        <TextView
+            android:text="@string/owner"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblOwner"
+            android:textAlignment="center"
+            android:textStyle="normal|italic"
+            android:layout_width="230dp" />
+
+        <TextView
+            android:text="@string/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblTime"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:textStyle="normal|italic" />
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:id="@+id/lstResult" />
+
 </LinearLayout>

@@ -21,7 +21,8 @@
             android:id="@+id/txtChallenge"
             android:layout_weight="1"
             android:text="challenge"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="textEnd" />
 
     </LinearLayout>
 
@@ -43,7 +44,8 @@
             android:id="@+id/txtRegatta"
             android:layout_weight="1"
             android:text="regatta"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="textEnd" />
     </LinearLayout>
 
     <LinearLayout
@@ -64,7 +66,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtDistance"
             android:layout_weight="1"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="textEnd" />
     </LinearLayout>
 
     <LinearLayout
@@ -85,32 +88,37 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtCompete"
             android:layout_weight="1"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="textEnd" />
     </LinearLayout>
 
     <TextView
         android:text="@string/lbl_jury"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lblJury" />
+        android:id="@+id/lblJury"
+        android:textAlignment="center" />
 
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/lstJury"
         android:background="@android:color/darker_gray"
-        android:layout_height="350px" />
+        android:layout_height="350px"
+        android:clickable="false" />
 
     <TextView
         android:text="@string/lbl_auditor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lblAuditor" />
+        android:id="@+id/lblAuditor"
+        android:textAlignment="center" />
 
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/lstAuditor"
         android:background="@android:color/darker_gray"
-        android:layout_height="350px" />
+        android:layout_height="350px"
+        android:clickable="false" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -122,7 +130,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnReturn"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="btnReturn" />
 
         <Button
             android:text="@string/btn_result"

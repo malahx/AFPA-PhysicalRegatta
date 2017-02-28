@@ -6,11 +6,18 @@
     <string name="txt_about">Copyright 2017 Malah</string>
     <string name="lbl_challenge">Challenge:</string>
     <string name="lbl_regatta">Regatta:</string>
-    <string name="no_challenge">No challenge found!</string>
     <string name="lbl_compete">Number of Sailboat:</string>
     <string name="lbl_jury">Jury:</string>
     <string name="lbl_auditor">Auditor:</string>
+    <string name="lbl_distance">Distance:</string>
+    <string name="lbl_result">Result:</string>
+    <string name="lbl_serie">Serie:</string>
+    <string name="lbl_class">Class:</string>
     <string name="btn_return">Return</string>
     <string name="btn_result">Result</string>
-    <string name="lbl_distance">Distance:</string>
+    <string name="position">Position</string>
+    <string name="owner">Owner</string>
+    <string name="time">Time</string>
+    <string name="no_challenge">No challenge found!</string>
+    <string name="num_sail">N° Sail</string>
 </resources>

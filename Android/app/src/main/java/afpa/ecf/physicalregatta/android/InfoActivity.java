@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import afpa.ecf.physicalregatta.android.model.Auditor;
@@ -19,13 +17,15 @@ import afpa.ecf.physicalregatta.android.model.Jury;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 import afpa.ecf.physicalregatta.android.model.view.ListAuditorAdapter;
 import afpa.ecf.physicalregatta.android.model.view.ListJuryAdapter;
-import afpa.ecf.physicalregatta.android.model.view.ListRegattaAdapter;
 
 /**
  * Created by Afpa on 28/02/2017.
  */
 
 public class InfoActivity extends ListMenu {
+
+    Regatta regatta;
+
     TextView txtChallenge;
     TextView txtRegatta;
     TextView txtDistance;
@@ -35,13 +35,12 @@ public class InfoActivity extends ListMenu {
     ListJuryAdapter adpJury;
     ListAuditorAdapter adpAuditor;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        Regatta regatta = (Regatta) getIntent().getSerializableExtra("regatta");
+        regatta = (Regatta) getIntent().getSerializableExtra("regatta");
 
         txtChallenge = (TextView) findViewById(R.id.txtChallenge);
         txtRegatta = (TextView) findViewById(R.id.txtRegatta);
@@ -66,11 +65,31 @@ public class InfoActivity extends ListMenu {
 
         adpAuditor = new ListAuditorAdapter(this, (ArrayList<Auditor>)regatta.getAuditorCollection());
         lstAuditor.setAdapter(adpAuditor);
+
+        Button btnResult = (Button) findViewById(R.id.btnResult);
+        btnResult.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                btnResult(v);
+            }
+        });
     }
 
     @Override
     void onMenuCreated(Menu menu) {
         MenuItem item = menu.findItem(R.id.itmExit);
         item.setVisible(false);
+    }
+
+    public void btnReturn(View view) {
+        finish();
+    }
+
+    public void btnResult(View view) {
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("regatta", regatta);
+        startActivity(intent);
+        finish();
     }
 }
