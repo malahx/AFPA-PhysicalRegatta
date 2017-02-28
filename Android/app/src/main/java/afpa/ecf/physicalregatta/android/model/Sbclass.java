@@ -28,6 +28,10 @@ public class Sbclass implements Serializable {
         this.id = id;
     }
 
+    public Sbclass(String name) {
+        this.name = name;
+    }
+
     public Sbclass(Integer id, String name, float coef) {
         this.id = id;
         this.name = name;

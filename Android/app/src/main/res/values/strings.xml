@@ -20,4 +20,6 @@
     <string name="time">Time</string>
     <string name="no_challenge">No challenge found!</string>
     <string name="num_sail">N° Sail</string>
+    <string name="select_serie">Select a serie</string>
+    <string name="select_class">Select a class</string>
 </resources>

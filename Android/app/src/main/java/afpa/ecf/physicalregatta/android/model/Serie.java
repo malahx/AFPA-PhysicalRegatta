@@ -26,6 +26,10 @@ public class Serie implements Serializable {
         this.id = id;
     }
 
+    public Serie(String name) {
+        this.name = name;
+    }
+
     public Serie(Integer id, String name) {
         this.id = id;
         this.name = name;

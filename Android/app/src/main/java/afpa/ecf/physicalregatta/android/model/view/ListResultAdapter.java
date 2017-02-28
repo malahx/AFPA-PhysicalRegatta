@@ -52,7 +52,8 @@ public class ListResultAdapter extends ArrayAdapter<Compete> {
 
         num_sail.setText(compete.getSailboatId().getNumSail() + "");
         txtOwner.setText(owner.getFirstname() + " " + owner.getLastname());
-        txtTime.setText(Utils.time(compete.getRealtime() - (compete.getRegattaId().getDistance() * sailboat.getClassId().getCoef())));
+        float f = compete.getRealtime() - (compete.getRegattaId().getDistance() * sailboat.getClassId().getCoef());
+        txtTime.setText(Utils.time(f > 0 ? f : 0));
         txtTime.setGravity(Gravity.END);
 
         // Return the completed view to render on screen

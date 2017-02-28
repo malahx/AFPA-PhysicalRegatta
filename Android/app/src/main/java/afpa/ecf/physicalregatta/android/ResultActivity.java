@@ -59,6 +59,9 @@ public class ResultActivity extends ListMenu {
         List<Serie> series = new ArrayList<>();
         List<Sbclass> sbclasss = new ArrayList<>();
 
+        series.add(new Serie(this.getString(R.string.select_serie)));
+        sbclasss.add(new Sbclass(this.getString(R.string.select_class)));
+
         Collection<Compete> competes = regatta.getCompeteCollection();
         for (Compete c : competes) {
             c.setRegattaId(regatta);
