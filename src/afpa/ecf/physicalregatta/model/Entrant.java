@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -48,27 +49,27 @@ public class Entrant implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @Basic(optional = false)
     @Column(name = "ffv")
-    private boolean ffv;
+    @Expose private boolean ffv;
     @Basic(optional = false)
     @Column(name = "num_licence")
-    private int numLicence;
+    @Expose private int numLicence;
     @Basic(optional = false)
     @Column(name = "year_permit")
-    private int yearPermit;
+    @Expose private int yearPermit;
     @Basic(optional = false)
     @Column(name = "birth")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date birth;
+    @Expose private Date birth;
     @ManyToMany(mappedBy = "entrantCollection")
     private Collection<Compete> competeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "entrantId")
     private Collection<Compete> competeCollection1;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     @OneToOne(optional = false)
-    private Person personId;
+    @Expose private Person personId;
 
     public Entrant() {
     }

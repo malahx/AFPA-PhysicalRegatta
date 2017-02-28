@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -40,19 +41,19 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @Basic(optional = false)
     @Column(name = "firstname")
-    private String firstname;
+    @Expose private String firstname;
     @Basic(optional = false)
     @Column(name = "lastname")
-    private String lastname;
+    @Expose private String lastname;
     @Basic(optional = false)
     @Column(name = "email")
-    private String email;
+    @Expose private String email;
     @Basic(optional = false)
     @Column(name = "password")
-    private String password;
+    @Expose private String password;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personId")
     private Owner owner;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personId")

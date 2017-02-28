@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -45,21 +46,21 @@ public class Challenge implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @Basic(optional = false)
     @Column(name = "code")
-    private String code;
+    @Expose private String code;
     @Basic(optional = false)
     @Column(name = "name")
-    private String name;
+    @Expose private String name;
     @Basic(optional = false)
     @Column(name = "begin")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date begin;
+    @Expose private Date begin;
     @Basic(optional = false)
     @Column(name = "end")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date end;
+    @Expose private Date end;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
     private Collection<Regatta> regattaCollection;
 

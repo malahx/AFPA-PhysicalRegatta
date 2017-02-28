@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -41,13 +42,13 @@ public class Owner implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @JoinColumn(name = "club_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Club clubId;
+    @Expose private Club clubId;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     @OneToOne(optional = false)
-    private Person personId;
+    @Expose private Person personId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
     private Collection<Sailboat> sailboatCollection;
 

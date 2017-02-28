@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -44,34 +45,34 @@ public class Compete implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @Basic(optional = false)
     @Column(name = "point")
-    private int point;
+    @Expose private int point;
     @Column(name = "valid")
-    private Boolean valid;
+    @Expose private Boolean valid;
     @Basic(optional = false)
     @Column(name = "realtime")
-    private float realtime;
+    @Expose private float realtime;
     @Column(name = "position")
-    private Integer position;
+    @Expose private Integer position;
     @JoinTable(name = "crew", joinColumns = {
         @JoinColumn(name = "compete_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "entrant_id", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Entrant> entrantCollection;
+    @Expose private Collection<Entrant> entrantCollection;
     @JoinColumn(name = "entrant_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Entrant entrantId;
+    @Expose private Entrant entrantId;
     @JoinColumn(name = "regatta_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Regatta regattaId;
     @JoinColumn(name = "report_id", referencedColumnName = "id")
     @ManyToOne
-    private Report reportId;
+    @Expose private Report reportId;
     @JoinColumn(name = "sailboat_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Sailboat sailboatId;
+    @Expose private Sailboat sailboatId;
 
     public Compete() {
     }

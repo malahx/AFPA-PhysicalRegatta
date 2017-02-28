@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -41,18 +42,18 @@ public class Sailboat implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @Basic(optional = false)
     @Column(name = "num_sail")
-    private int numSail;
+    @Expose private int numSail;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sailboatId")
     private Collection<Compete> competeCollection;
     @JoinColumn(name = "class_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Sbclass classId;
+    @Expose private Sbclass classId;
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Owner ownerId;
+    @Expose private Owner ownerId;
 
     public Sailboat() {
     }

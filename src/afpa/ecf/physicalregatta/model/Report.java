@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -39,13 +40,13 @@ public class Report implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @Basic(optional = false)
     @Column(name = "code")
-    private String code;
+    @Expose private String code;
     @Basic(optional = false)
     @Column(name = "name")
-    private String name;
+    @Expose private String name;
     @OneToMany(mappedBy = "reportId")
     private Collection<Compete> competeCollection;
 

@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.model;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -41,7 +42,7 @@ public class Auditor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    @Expose private Integer id;
     @JoinTable(name = "panel", joinColumns = {
         @JoinColumn(name = "auditor_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "regatta_id", referencedColumnName = "id")})
@@ -49,10 +50,10 @@ public class Auditor implements Serializable {
     private Collection<Regatta> regattaCollection;
     @JoinColumn(name = "committee_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Committee committeeId;
+    @Expose private Committee committeeId;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     @OneToOne(optional = false)
-    private Person personId;
+    @Expose private Person personId;
 
     public Auditor() {
     }
