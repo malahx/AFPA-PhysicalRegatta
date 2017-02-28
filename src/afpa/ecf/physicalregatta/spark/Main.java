@@ -35,7 +35,7 @@ public class Main {
             Query qRegatta = em.createNamedQuery("Regatta.findAll");
 
             List<Regatta> regattas = qRegatta.getResultList();
-            System.out.println(regattas.size());
+            System.out.println("GET regattas");
             return regattas;
         }, new JsonTransformer());
       

@@ -43,6 +43,8 @@ public class Regattas {
         List<Regatta> regattas = qRegatta.getResultList();
         Gson gson = gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(regattas);
+        
+        System.out.println("GET regattas");
         return json;
     }
 }
