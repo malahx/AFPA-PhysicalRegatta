@@ -109,7 +109,7 @@ public class Challenge implements Serializable {
 
     @Override
     public String toString() {
-        return "afpa.ecf.physicalregatta.model.Challenge[ id=" + id + " ]";
+        return "afpa.ecf.physicalregatta.model.Challenge[ id=" + id + " ]: " + name;
     }
     
 }

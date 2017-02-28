@@ -3,4 +3,133 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/lbl_challenge"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblChallenge"
+            android:layout_weight="1"
+            android:layout_width="300dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtChallenge"
+            android:layout_weight="1"
+            android:text="challenge"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/lbl_regatta"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblRegatta"
+            android:layout_weight="1"
+            android:layout_width="300dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtRegatta"
+            android:layout_weight="1"
+            android:text="regatta"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/lbl_distance"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblDistance"
+            android:layout_weight="1"
+            android:layout_width="300dp" />
+
+        <TextView
+            android:text="distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDistance"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/lbl_compete"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblCompete"
+            android:layout_weight="1"
+            android:layout_width="300dp" />
+
+        <TextView
+            android:text="compete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCompete"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:text="@string/lbl_jury"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblJury" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/lstJury"
+        android:background="@android:color/darker_gray"
+        android:layout_height="350px" />
+
+    <TextView
+        android:text="@string/lbl_auditor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblAuditor" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/lstAuditor"
+        android:background="@android:color/darker_gray"
+        android:layout_height="350px" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:text="@string/btn_return"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnReturn"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="@string/btn_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnResult"
+            android:layout_weight="1" />
+    </LinearLayout>
+
 </LinearLayout>

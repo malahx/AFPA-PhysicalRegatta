@@ -12,38 +12,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import afpa.ecf.physicalregatta.android.R;
+import afpa.ecf.physicalregatta.android.model.Auditor;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 
 /**
  * Created by Afpa on 28/02/2017.
  */
 
-public class ListRegattaAdapter extends ArrayAdapter<Regatta> {
+public class ListAuditorAdapter extends ArrayAdapter<Auditor> {
 
-    private List<Regatta> regattas;
+    private List<Auditor> auditors;
 
-    public ListRegattaAdapter(Context context, ArrayList<Regatta> regattas) {
-        super(context, 0, regattas);
-        this.regattas = new ArrayList<>(regattas);
+    public ListAuditorAdapter(Context context, ArrayList<Auditor> auditors) {
+        super(context, 0, auditors);
+        this.auditors = new ArrayList<>(auditors);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // Get the data item for this position
-        Regatta regatta = getItem(position);
+        Auditor auditor = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itm_regatta, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itm_auditor, parent, false);
         }
 
         // Lookup view for data population
         final TextView title = (TextView) convertView.findViewById(R.id.title);
-        final TextView date = (TextView) convertView.findViewById(R.id.date);
-        title.setText(regatta.getName());
-        date.setText(regatta.getDate().toString());
-        date.setGravity(Gravity.END);
+        final TextView committee = (TextView) convertView.findViewById(R.id.committee);
+
+        title.setText(auditor.getPersonId().getFirstname() + " " + auditor.getPersonId().getLastname());
+        committee.setText(auditor.getCommitteeId().getName());
+        committee.setGravity(Gravity.END);
 
         // Return the completed view to render on screen
         return convertView;

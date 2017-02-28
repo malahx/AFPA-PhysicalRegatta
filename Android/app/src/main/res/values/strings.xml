@@ -7,4 +7,10 @@
     <string name="lbl_challenge">Challenge:</string>
     <string name="lbl_regatta">Regatta:</string>
     <string name="no_challenge">No challenge found!</string>
+    <string name="lbl_compete">Number of Sailboat:</string>
+    <string name="lbl_jury">Jury:</string>
+    <string name="lbl_auditor">Auditor:</string>
+    <string name="btn_return">Return</string>
+    <string name="btn_result">Result</string>
+    <string name="lbl_distance">Distance:</string>
 </resources>

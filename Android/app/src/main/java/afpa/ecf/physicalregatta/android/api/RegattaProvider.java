@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import afpa.ecf.physicalregatta.android.MainActivity;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 
 /**
@@ -29,8 +30,6 @@ import afpa.ecf.physicalregatta.android.model.Regatta;
  */
 
 public class RegattaProvider extends AsyncTask<String, Void, ArrayList<Regatta>> {
-
-    private Gson gson = new GsonBuilder().create();
 
     @Override
     protected void onPostExecute(ArrayList<Regatta> r) {
@@ -80,7 +79,7 @@ public class RegattaProvider extends AsyncTask<String, Void, ArrayList<Regatta>>
             }
             urlConnection.disconnect();
             Type listType = new TypeToken<ArrayList<Regatta>>(){}.getType();
-            regattas = gson.fromJson(sb.toString(), listType);
+            regattas = MainActivity.GSON.fromJson(sb.toString(), listType);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

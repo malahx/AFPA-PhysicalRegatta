@@ -12,41 +12,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import afpa.ecf.physicalregatta.android.R;
+import afpa.ecf.physicalregatta.android.model.Jury;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 
 /**
  * Created by Afpa on 28/02/2017.
  */
 
-public class ListRegattaAdapter extends ArrayAdapter<Regatta> {
+public class ListJuryAdapter extends ArrayAdapter<Jury> {
 
-    private List<Regatta> regattas;
+    private List<Jury> jury;
 
-    public ListRegattaAdapter(Context context, ArrayList<Regatta> regattas) {
-        super(context, 0, regattas);
-        this.regattas = new ArrayList<>(regattas);
+    public ListJuryAdapter(Context context, ArrayList<Jury> jury) {
+        super(context, 0, jury);
+        this.jury = new ArrayList<>(jury);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // Get the data item for this position
-        Regatta regatta = getItem(position);
+        Jury jury = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itm_regatta, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itm_person, parent, false);
         }
 
         // Lookup view for data population
         final TextView title = (TextView) convertView.findViewById(R.id.title);
-        final TextView date = (TextView) convertView.findViewById(R.id.date);
-        title.setText(regatta.getName());
-        date.setText(regatta.getDate().toString());
-        date.setGravity(Gravity.END);
+        title.setText(jury.getPersonId().getFirstname() + " " + jury.getPersonId().getLastname());
 
         // Return the completed view to render on screen
         return convertView;
     }
-
 }

@@ -5,6 +5,9 @@ import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -15,6 +18,7 @@ import afpa.ecf.physicalregatta.android.model.view.ListRegattaClicked;
 
 public class MainActivity extends ListMenu {
 
+    public final static Gson GSON = new GsonBuilder().create();
     ListView lstRegatta;
     ListRegattaAdapter adpRegatta;
 
