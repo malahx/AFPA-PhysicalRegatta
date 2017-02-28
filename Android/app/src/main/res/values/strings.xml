@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PhysicalRegatta</string>
+    <string name="itm_lang">Languages</string>
+    <string name="itm_exit">Exit</string>
+    <string name="itm_about">About</string>
+    <string name="txt_about">Copyright 2017 Malah</string>
+    <string name="lbl_challenge">Challenge:</string>
+    <string name="lbl_regatta">Regatta:</string>
+    <string name="no_challenge">No challenge found!</string>
+</resources>
