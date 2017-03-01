@@ -9,7 +9,6 @@ import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,10 +26,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -77,7 +72,7 @@ public class Regatta implements Serializable {
     @Expose private Collection<Compete> competeCollection;
     @JoinColumn(name = "challenge_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @Expose private Challenge challengeId;
+    private Challenge challengeId;
 
     public Regatta() {
     }

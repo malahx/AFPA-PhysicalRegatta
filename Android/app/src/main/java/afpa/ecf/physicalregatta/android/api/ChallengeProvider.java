@@ -17,23 +17,24 @@ import java.util.ArrayList;
 
 import afpa.ecf.physicalregatta.android.Settings;
 import afpa.ecf.physicalregatta.android.Utils;
+import afpa.ecf.physicalregatta.android.model.Challenge;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 
 /**
  * Created by Afpa on 28/02/2017.
  */
 
-public class RegattaProvider extends AsyncTask<String, Void, ArrayList<Regatta>> {
+public class ChallengeProvider extends AsyncTask<String, Void, Challenge> {
 
     @Override
-    protected void onPostExecute(ArrayList<Regatta> r) {
-        super.onPostExecute(r);
+    protected void onPostExecute(Challenge c) {
+        super.onPostExecute(c);
     }
 
     @Override
-    protected ArrayList<Regatta> doInBackground(String... params) {
+    protected Challenge doInBackground(String... params) {
 
-        ArrayList<Regatta> regattas = null;
+        Challenge challenge = null;
 
         StringBuilder sb = null;
         HttpURLConnection urlConnection;
@@ -72,8 +73,10 @@ public class RegattaProvider extends AsyncTask<String, Void, ArrayList<Regatta>>
 
             }
             urlConnection.disconnect();
-            Type listType = new TypeToken<ArrayList<Regatta>>(){}.getType();
-            regattas = Utils.GSON.fromJson(sb.toString(), listType);
+            challenge = Utils.GSON.fromJson(sb.toString(), Challenge.class);
+            for (Regatta r : challenge.getRegattaCollection()) {
+                r.setChallengeId(challenge);
+            }
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -81,6 +84,6 @@ public class RegattaProvider extends AsyncTask<String, Void, ArrayList<Regatta>>
             e.printStackTrace();
         }
 
-        return regattas;
+        return challenge;
     }
 }

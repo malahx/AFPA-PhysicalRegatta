@@ -62,7 +62,7 @@ public class Challenge implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Expose private Date end;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
-    private Collection<Regatta> regattaCollection;
+    @Expose private Collection<Regatta> regattaCollection;
 
     public Challenge() {
     }

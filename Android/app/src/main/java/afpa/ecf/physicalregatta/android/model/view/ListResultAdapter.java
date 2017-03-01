@@ -65,6 +65,8 @@ public class ListResultAdapter extends ArrayAdapter<Compete> implements Filterab
         pos.setTextColor(Color.BLACK);
         txtOwner.setTextColor(Color.BLACK);
         txtTime.setTextColor(Color.BLACK);
+        pos.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
+        txtOwner.setPaintFlags(Paint.LINEAR_TEXT_FLAG);
 
         if (compete.getReportId() != null) {
             pos.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);

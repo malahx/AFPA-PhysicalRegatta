@@ -6,12 +6,7 @@
 package afpa.ecf.physicalregatta.spark;
 
 import afpa.ecf.physicalregatta.Settings;
-import afpa.ecf.physicalregatta.model.Regatta;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import afpa.ecf.physicalregatta.Utils;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.staticFiles;
@@ -23,19 +18,12 @@ import static spark.Spark.staticFiles;
 public class Main {
         
     public static void main(String[] args) {
-        //get("/hello", (req, res) -> "Hello World");
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhysicalRegattaPU");
-        EntityManager em = emf.createEntityManager();
         
         port(Settings.PORT);
         staticFiles.location("/public"); // Static files
         
         get(Settings.getURIRegattas(), "application/json", (request, response) -> {
-            Query qRegatta = em.createNamedQuery("Regatta.findAll");
-
-            List<Regatta> regattas = qRegatta.getResultList();
-            System.out.println("GET regattas");
-            return regattas;
+            return Utils.getCurrentChallenge();
         }, new JsonTransformer());
       
     }

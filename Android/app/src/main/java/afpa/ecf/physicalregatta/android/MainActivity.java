@@ -9,7 +9,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import afpa.ecf.physicalregatta.android.api.RegattaProvider;
+import afpa.ecf.physicalregatta.android.api.ChallengeProvider;
+import afpa.ecf.physicalregatta.android.model.Challenge;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 import afpa.ecf.physicalregatta.android.model.view.ListRegattaAdapter;
 import afpa.ecf.physicalregatta.android.model.view.ListRegattaClicked;
@@ -32,27 +33,26 @@ public class MainActivity extends ListMenu {
         lblInfo = (TextView) findViewById(R.id.lblInfo);
         lstRegatta = (ListView) findViewById(R.id.lstRegatta);
 
-        ArrayList<Regatta> regattas = new ArrayList<>();
-        RegattaProvider data = new RegattaProvider();
+        Challenge challenge = null;
+        ChallengeProvider data = new ChallengeProvider();
 
         data.execute();
 
         try {
-            regattas = data.get();
+            challenge = data.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-
-        if (regattas.size() == 0) {
+        if (challenge == null || challenge.getRegattaCollection().size() == 0) {
             txtChallenge.setText(this.getString(R.string.no_challenge));
         } else {
-            txtChallenge.setText(regattas.get(0).getChallengeId().getName());
+            txtChallenge.setText(challenge.getName());
             txtChallenge.setGravity(Gravity.END);
 
-            adpRegatta = new ListRegattaAdapter(this, regattas);
+            adpRegatta = new ListRegattaAdapter(this, (ArrayList<Regatta>)challenge.getRegattaCollection());
             lstRegatta.setAdapter(adpRegatta);
 
             lstRegatta.setOnItemClickListener(new ListRegattaClicked());
