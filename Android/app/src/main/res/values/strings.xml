@@ -26,4 +26,6 @@
     <string name="lbl_info">Select the regatta on which you want to see more information.</string>
     <string name="regatta">Regatta</string>
     <string name="date">Date</string>
+    <string name="jury">Jury</string>
+    <string name="auditor">Auditor</string>
 </resources>

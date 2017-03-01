@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PhysicalRegatta</string>
+    <string name="btn_result">Résultat</string>
+    <string name="btn_return">Retour</string>
+    <string name="date">Date</string>
+    <string name="hide_no_result">Cacher les voiliers qui n\'ont aucun résultats saisis</string>
+    <string name="itm_about">A propos</string>
+    <string name="itm_exit">Quitter</string>
+    <string name="itm_lang">Langues</string>
+    <string name="lbl_auditor">Commissaire :</string>
+    <string name="lbl_challenge">Challenge :</string>
+    <string name="lbl_class">Classe :</string>
+    <string name="lbl_compete">Nombre de voilier :</string>
+    <string name="lbl_distance">Distance :</string>
+    <string name="lbl_info">Sélectionner la régatte dont vous souhaitez obtenir des renseignements</string>
+    <string name="lbl_jury">Jury :</string>
+    <string name="lbl_regatta">Régatte :</string>
+    <string name="lbl_serie">Série :</string>
+    <string name="no_challenge">Aucun challenge trouvé !</string>
+    <string name="num_sail">N° Voile</string>
+    <string name="owner">Porpriétaire (N°Voile)</string>
+    <string name="position">Position</string>
+    <string name="regatta">Régatte</string>
+    <string name="result">Résultat</string>
+    <string name="select_class">Sélectionner une classe</string>
+    <string name="select_serie">Sélectionner une série</string>
+    <string name="time">Temps/Err</string>
+    <string name="txt_about">Copyright 2017 Malah</string>
+    <string name="jury">Jury</string>
+    <string name="auditor">Commissaire</string>
+</resources>

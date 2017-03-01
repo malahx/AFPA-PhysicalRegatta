@@ -30,6 +30,8 @@ public class InfoActivity extends ListMenu {
     TextView txtRegatta;
     TextView txtDistance;
     TextView txtCompete;
+    TextView lblJury;
+    TextView lblAuditor;
     ListView lstJury;
     ListView lstAuditor;
     ListJuryAdapter adpJury;
@@ -46,6 +48,8 @@ public class InfoActivity extends ListMenu {
         txtRegatta = (TextView) findViewById(R.id.txtRegatta);
         txtDistance = (TextView) findViewById(R.id.txtDistance);
         txtCompete = (TextView) findViewById(R.id.txtCompete);
+        lblJury = (TextView) findViewById(R.id.lblJury);
+        lblAuditor = (TextView) findViewById(R.id.lblAuditor);
 
         txtChallenge.setText(regatta.getChallengeId().getName());
         txtRegatta.setText(regatta.getName());
@@ -56,6 +60,8 @@ public class InfoActivity extends ListMenu {
         txtRegatta.setGravity(Gravity.END);
         txtDistance.setGravity(Gravity.END);
         txtCompete.setGravity(Gravity.END);
+        lblJury.setGravity(Gravity.CENTER);
+        lblAuditor.setGravity(Gravity.CENTER);
 
         lstJury = (ListView) findViewById(R.id.lstJury);
         lstAuditor = (ListView) findViewById(R.id.lstAuditor);

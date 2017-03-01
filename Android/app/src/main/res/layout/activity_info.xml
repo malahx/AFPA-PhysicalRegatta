@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/lblChallenge"
             android:layout_weight="1"
-            android:layout_width="300dp" />
+            android:layout_width="150dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/lblRegatta"
             android:layout_weight="1"
-            android:layout_width="300dp" />
+            android:layout_width="150dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -93,11 +93,12 @@
     </LinearLayout>
 
     <TextView
-        android:text="@string/lbl_jury"
+        android:text="@string/jury"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lblJury"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textStyle="normal|bold" />
 
     <ListView
         android:layout_width="match_parent"
@@ -107,11 +108,13 @@
         android:clickable="false" />
 
     <TextView
-        android:text="@string/lbl_auditor"
+        android:text="@string/auditor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lblAuditor"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="10dp" />
 
     <ListView
         android:layout_width="match_parent"

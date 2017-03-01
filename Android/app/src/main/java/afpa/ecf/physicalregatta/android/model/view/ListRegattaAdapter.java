@@ -44,7 +44,7 @@ public class ListRegattaAdapter extends ArrayAdapter<Regatta> {
         final TextView date = (TextView) convertView.findViewById(R.id.date);
         title.setText(regatta.getName());
 
-        SimpleDateFormat format = getContext().getResources().getConfiguration().locale.toString().split("_")[0] == "en" ? new SimpleDateFormat("MM/dd/yyyy") : new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = getContext().getResources().getConfiguration().locale.toString().split("_")[0].equals("en") ? new SimpleDateFormat("MM/dd/yyyy") : new SimpleDateFormat("dd/MM/yyyy");
 
         date.setText(format.format(regatta.getDate()));
         date.setGravity(Gravity.END);
