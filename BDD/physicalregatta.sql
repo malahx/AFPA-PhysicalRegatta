@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 24, 2017 at 11:54 AM
+-- Generation Time: Mar 01, 2017 at 08:11 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.16-2+deb.sury.org~xenial+1
 
@@ -213,14 +213,14 @@ CREATE TABLE `compete` (
 --
 
 INSERT INTO `compete` (`id`, `regatta_id`, `sailboat_id`, `report_id`, `entrant_id`, `point`, `valid`, `realtime`, `position`) VALUES
-(2, 3, 1, NULL, 1, 3, 1, 0, NULL),
-(3, 3, 2, NULL, 2, 2, 1, 0, NULL),
-(4, 3, 3, NULL, 3, 4, 1, 0, NULL),
-(5, 3, 4, NULL, 4, 1, 1, 0, NULL),
-(6, 3, 5, NULL, 5, 10, 1, 0, NULL),
-(7, 3, 6, NULL, 6, 5, 1, 0, NULL),
-(8, 3, 7, NULL, 7, 10, 1, 0, NULL),
-(9, 3, 8, NULL, 8, 10, 1, 0, NULL),
+(2, 3, 1, NULL, 1, 3, 1, 33652, 1),
+(3, 3, 2, NULL, 2, 2, 1, 34569, 2),
+(4, 3, 3, NULL, 3, 4, 1, 35690, 3),
+(5, 3, 4, NULL, 4, 1, 1, 35791, 4),
+(6, 3, 5, NULL, 5, 10, 1, 36594, 5),
+(7, 3, 6, NULL, 6, 5, 1, 36599, 6),
+(8, 3, 7, NULL, 7, 10, 1, 37123, 7),
+(9, 3, 8, NULL, 8, 10, 1, 40236, 8),
 (10, 3, 9, NULL, 9, 2, 1, 0, NULL),
 (11, 3, 10, NULL, 10, 1, 1, 0, NULL),
 (12, 3, 11, NULL, 11, 4, 1, 0, NULL),
@@ -246,7 +246,7 @@ CREATE TRIGGER `compete_BEFORE_UPDATE` BEFORE UPDATE ON `compete` FOR EACH ROW B
 		FROM compete co 
         INNER JOIN sailboat s 
         ON s.id = co.sailboat_id 
-        INNER JOIN class cl 
+        INNER JOIN sbclass cl 
         ON cl.id = s.class_id 
         WHERE co.regatta_id = NEW.regatta_id
         AND s.class_id = class_id_sailboat
