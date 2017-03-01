@@ -1,6 +1,8 @@
 package afpa.ecf.physicalregatta.android.model.view;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,8 +54,24 @@ public class ListResultAdapter extends ArrayAdapter<Compete> {
 
         pos.setText(compete.getPosition() != null ? compete.getPosition().toString() : "N/A");
         txtOwner.setText(owner.getFirstname() + " " + owner.getLastname() + " (" + compete.getSailboatId().getNumSail()+ ")");
-        float f = compete.getRealtime() - (compete.getRegattaId().getDistance() * sailboat.getClassId().getCoef());
-        txtTime.setText(compete.getReportId() != null ? compete.getReportId().getName() : Utils.time(f > 0 ? f : 0));
+        pos.setTextColor(Color.BLACK);
+        txtOwner.setTextColor(Color.BLACK);
+        txtTime.setTextColor(Color.BLACK);
+
+        if (compete.getReportId() != null) {
+            pos.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            txtOwner.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            txtTime.setText(compete.getReportId().getCode());
+        } else if (compete.getRealtime() == 0) {
+            pos.setTextColor(Color.LTGRAY);
+            txtOwner.setTextColor(Color.LTGRAY);
+            txtTime.setTextColor(Color.LTGRAY);
+            txtTime.setText("N/A");
+        } else {
+            float f = compete.getRealtime() - (compete.getRegattaId().getDistance() * sailboat.getClassId().getCoef());
+            txtTime.setText(Utils.time(f > 0 ? f : 0));
+        }
+
         txtTime.setGravity(Gravity.END);
 
         // Return the completed view to render on screen
