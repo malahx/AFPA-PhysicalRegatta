@@ -70,6 +70,10 @@ public class Compete implements Serializable {
         return realtime;
     }
 
+    public float getCompTime() {
+        return realtime - (regattaId.getDistance() * sailboatId.getClassId().getCoef());
+    }
+
     public void setRealtime(float realtime) {
         this.realtime = realtime;
     }
