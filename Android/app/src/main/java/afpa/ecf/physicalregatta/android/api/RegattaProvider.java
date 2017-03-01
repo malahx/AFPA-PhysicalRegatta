@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import afpa.ecf.physicalregatta.android.Settings;
 import afpa.ecf.physicalregatta.android.Utils;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 
@@ -41,7 +42,7 @@ public class RegattaProvider extends AsyncTask<String, Void, ArrayList<Regatta>>
 
         try {
 
-            URL url = new URL("http://10.105.49.11:8080/api/regatta");
+            URL url = new URL(Settings.getUrlRegattas());
             System.out.println(url);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000);

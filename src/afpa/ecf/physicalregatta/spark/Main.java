@@ -5,6 +5,7 @@
  */
 package afpa.ecf.physicalregatta.spark;
 
+import afpa.ecf.physicalregatta.Settings;
 import afpa.ecf.physicalregatta.model.Regatta;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,18 +21,16 @@ import static spark.Spark.staticFiles;
  * @author lionel
  */
 public class Main {
-    
-    static final String PREFIX = "/api";
-    
+        
     public static void main(String[] args) {
         //get("/hello", (req, res) -> "Hello World");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhysicalRegattaPU");
         EntityManager em = emf.createEntityManager();
         
-        port(8080);
+        port(Settings.PORT);
         staticFiles.location("/public"); // Static files
         
-        get(PREFIX + "/regatta", "application/json", (request, response) -> {
+        get(Settings.getURIRegattas(), "application/json", (request, response) -> {
             Query qRegatta = em.createNamedQuery("Regatta.findAll");
 
             List<Regatta> regattas = qRegatta.getResultList();

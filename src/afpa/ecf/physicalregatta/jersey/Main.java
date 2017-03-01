@@ -1,22 +1,18 @@
 package afpa.ecf.physicalregatta.jersey;
 
-import afpa.ecf.physicalregatta.model.Regatta;
-import com.google.gson.Gson;
+import afpa.ecf.physicalregatta.Settings;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 
 /**
  * Main class.
  *
  */
 public class Main {
-    // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:8080/api/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
@@ -29,7 +25,7 @@ public class Main {
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(Settings.getUrlAPI()), rc);
     }
 
     /**
@@ -39,8 +35,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         final HttpServer server = startServer();
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
+        System.out.println("Server Opened: " + Settings.getUrlAPI() + "\nHit enter to stop it...");
         System.in.read();
         server.stop();
     }
