@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-01T16:41:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="depart_list" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ced95029-b569-4027-895c-af2843a4e088">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysql localhost"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="regatta_id" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT regatta.name as REGATTA, regatta.date as DATE, challenge.name as CHALLENGE, firstname AS FIRSTNAME, lastname AS LASTNAME, num_sail AS SAIL FROM compete INNER JOIN sailboat ON sailboat.id = compete.sailboat_id INNER JOIN owner ON owner.id = sailboat.owner_id INNER JOIN person ON person.id = owner.person_id INNER JOIN regatta ON regatta.id = compete.regatta_id INNER JOIN challenge ON challenge.id = regatta.challenge_id WHERE compete.regatta_id = $P{regatta_id}]]>
+	</queryString>
+	<field name="FIRSTNAME" class="java.lang.String"/>
+	<field name="LASTNAME" class="java.lang.String"/>
+	<field name="SAIL" class="java.lang.Integer"/>
+	<field name="DATE" class="java.util.Date"/>
+	<field name="REGATTA" class="java.lang.String"/>
+	<field name="CHALLENGE" class="java.lang.String"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{FIRSTNAME}]]></groupExpression>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[$F{REGATTA}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				<frame>
+					<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="c02b1022-8e8a-4fba-8a4c-fdf0eff94cf1">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="0" y="0" width="111" height="15" backcolor="#CEDBE0" uuid="0ad13e3e-65eb-4240-9474-2841565b233a"/>
+						<box>
+							<pen lineWidth="1.0" lineStyle="Solid"/>
+						</box>
+						<textFieldExpression><![CDATA[new java.lang.Integer($V{REPORT_COUNT}+1)]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="111" y="0" width="339" height="15" uuid="f7fea2d9-1d20-4694-8ee3-24d674dc0034"/>
+						<box>
+							<pen lineWidth="1.0" lineStyle="Solid"/>
+						</box>
+						<textFieldExpression><![CDATA[$F{FIRSTNAME} + " " + $F{LASTNAME}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" x="450" y="0" width="68" height="15" uuid="93cac89a-f097-4dd6-9149-10d4e8de574c"/>
+						<box>
+							<pen lineWidth="1.0" lineStyle="Solid"/>
+						</box>
+						<textElement textAlignment="Center"/>
+						<textFieldExpression><![CDATA[$F{SAIL}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement style="Column header" x="530" y="0" width="25" height="15" forecolor="#736343" uuid="b0e95959-ee44-41d6-be6f-492b3c29b544"/>
+						<box>
+							<pen lineWidth="1.0" lineStyle="Solid"/>
+						</box>
+						<text><![CDATA[]]></text>
+					</staticText>
+					<staticText>
+						<reportElement style="Column header" x="518" y="0" width="12" height="15" forecolor="#736343" uuid="82789fa1-c129-4272-96f8-fc3a32b05146"/>
+						<box>
+							<pen lineWidth="1.0" lineStyle="Solid"/>
+						</box>
+						<text><![CDATA[]]></text>
+					</staticText>
+				</frame>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="SAIL">
+		<groupExpression><![CDATA[$F{SAIL}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="96" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="250" height="60" uuid="c0fee3e4-7697-4f85-9ac4-60d0208b7967"/>
+				<imageExpression><![CDATA["Dahouet.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="289" y="0" width="263" height="62" uuid="aa3970eb-8435-43f5-ac37-904fb2fa75b2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="50" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Régate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="74" width="95" height="20" uuid="8557b46d-bbcf-4c7e-9d48-23983d2ffc52"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[LISTE DE DEPART]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="65" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="1a61a836-d137-48b1-ad67-6ff64600bf93"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="1" y="0" width="552" height="12" uuid="8db6eb41-2441-48f5-bfa4-396dbaf634bf"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CHALLENGE} + ", " + $F{REGATTA} + " Date : " + $F{DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="518" y="50" width="12" height="15" forecolor="#000000" backcolor="#CEDBE0" uuid="82f0e21e-5221-47d5-8f65-243cde10e368"/>
+				<text><![CDATA[P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="530" y="50" width="25" height="15" forecolor="#000000" backcolor="#CEDBE0" uuid="2ed3cd46-26b1-44bf-a46c-8e3e683253a1"/>
+				<text><![CDATA[A/R]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="451" y="50" width="67" height="15" forecolor="#000000" backcolor="#CEDBE0" uuid="794471da-1d9b-4a03-8a34-74d3c87b1af5"/>
+				<text><![CDATA[N° VOILE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="50" width="111" height="15" forecolor="#000000" backcolor="#CEDBE0" uuid="927c15c9-7576-4878-ac0e-e419bea3488e"/>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="111" y="50" width="340" height="14" forecolor="#000000" backcolor="#CEDBE0" uuid="42b7e11a-6403-4224-b7da-a3b15a007fe9"/>
+				<text><![CDATA[CONCURRENT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="15" width="380" height="14" uuid="f078551f-e3a0-4c05-b135-ba75f0afdaf1"/>
+				<textFieldExpression><![CDATA["Toutes séries, toutes classes"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="29" width="130" height="14" uuid="4c4688be-24c8-42e6-b067-4e856c85c075"/>
+				<textFieldExpression><![CDATA["Nom des commissaires : "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="29" width="70" height="14" uuid="3bb64d56-d373-4391-a4f7-ec3aaa0ce3e0"/>
+				<textFieldExpression><![CDATA["Signature :"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="183682bc-d976-4756-83e0-6625a3f98ed1"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="0193f9b3-1559-491a-8580-b6988863b6a1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="d00b105e-494b-418b-8ac9-8b1b4824f4f0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="0616f3fe-0354-456f-8911-ec30ec51a5ae"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
