@@ -79,11 +79,7 @@ public class InfoActivity extends ListMenu {
     @Override
     void onMenuCreated(Menu menu) {
         MenuItem item = menu.findItem(R.id.itmExit);
-        item.setVisible(false);
-    }
-
-    public void btnReturn(View view) {
-        finish();
+        item.setTitle(this.getString(R.string.btn_return));
     }
 
     public void btnResult(View view) {

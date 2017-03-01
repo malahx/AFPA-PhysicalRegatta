@@ -10,16 +10,17 @@
     <string name="lbl_jury">Jury:</string>
     <string name="lbl_auditor">Auditor:</string>
     <string name="lbl_distance">Distance:</string>
-    <string name="lbl_result">Result:</string>
     <string name="lbl_serie">Serie:</string>
     <string name="lbl_class">Class:</string>
     <string name="btn_return">Return</string>
     <string name="btn_result">Result</string>
     <string name="position">Position</string>
-    <string name="owner">Owner</string>
-    <string name="time">Time</string>
+    <string name="owner">Owner (N°Sail)</string>
+    <string name="time">Time/Err</string>
     <string name="no_challenge">No challenge found!</string>
     <string name="num_sail">N° Sail</string>
     <string name="select_serie">Select a serie</string>
     <string name="select_class">Select a class</string>
+    <string name="result">Result</string>
+    <string name="hide_no_result">Hide sailboat with no result entered</string>
 </resources>

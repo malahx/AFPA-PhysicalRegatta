@@ -13,13 +13,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import afpa.ecf.physicalregatta.android.model.Auditor;
 import afpa.ecf.physicalregatta.android.model.Compete;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 import afpa.ecf.physicalregatta.android.model.Sbclass;
 import afpa.ecf.physicalregatta.android.model.Serie;
-import afpa.ecf.physicalregatta.android.model.view.ListAuditorAdapter;
-import afpa.ecf.physicalregatta.android.model.view.ListJuryAdapter;
 import afpa.ecf.physicalregatta.android.model.view.ListResultAdapter;
 
 /**
@@ -32,6 +29,7 @@ public class ResultActivity extends ListMenu {
     TextView txtRegatta;
     TextView lblOwner;
     TextView lblTime;
+    TextView lblResult;
     Spinner spnSerie;
     Spinner spnClass;
     ListView lstResult;
@@ -49,6 +47,7 @@ public class ResultActivity extends ListMenu {
         txtRegatta = (TextView) findViewById(R.id.txtRegatta);
         lblOwner = (TextView) findViewById(R.id.lblOwner);
         lblTime = (TextView) findViewById(R.id.lblTime);
+        lblResult = (TextView) findViewById(R.id.lblResult);
         spnSerie = (Spinner) findViewById(R.id.spnSerie);
         spnClass = (Spinner) findViewById(R.id.spnClass);
         lstResult = (ListView) findViewById(R.id.lstResult);
@@ -84,7 +83,7 @@ public class ResultActivity extends ListMenu {
         adpResult = new ListResultAdapter(this, (ArrayList<Compete>)competes);
         lstResult.setAdapter(adpResult);
 
-        lblOwner.setGravity(Gravity.CENTER);
+        lblResult.setGravity(Gravity.CENTER);
         lblTime.setGravity(Gravity.END);
 
     }
@@ -92,6 +91,6 @@ public class ResultActivity extends ListMenu {
     @Override
     void onMenuCreated(Menu menu) {
         MenuItem item = menu.findItem(R.id.itmExit);
-        item.setVisible(false);
+        item.setTitle(this.getString(R.string.btn_return));
     }
 }

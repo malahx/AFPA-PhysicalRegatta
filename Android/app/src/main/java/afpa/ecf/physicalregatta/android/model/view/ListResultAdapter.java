@@ -43,17 +43,17 @@ public class ListResultAdapter extends ArrayAdapter<Compete> {
         }
 
         // Lookup view for data population
-        final TextView num_sail = (TextView) convertView.findViewById(R.id.txtNumsail);
+        final TextView pos = (TextView) convertView.findViewById(R.id.txtNumsail);
         final TextView txtOwner = (TextView) convertView.findViewById(R.id.txtOwner);
         final TextView txtTime = (TextView) convertView.findViewById(R.id.txtTime);
 
         final Sailboat sailboat = compete.getSailboatId();
         final Person owner = sailboat.getOwnerId().getPersonId();
 
-        num_sail.setText(compete.getSailboatId().getNumSail() + "");
-        txtOwner.setText(owner.getFirstname() + " " + owner.getLastname());
+        pos.setText(compete.getPosition() != null ? compete.getPosition().toString() : "N/A");
+        txtOwner.setText(owner.getFirstname() + " " + owner.getLastname() + " (" + compete.getSailboatId().getNumSail()+ ")");
         float f = compete.getRealtime() - (compete.getRegattaId().getDistance() * sailboat.getClassId().getCoef());
-        txtTime.setText(Utils.time(f > 0 ? f : 0));
+        txtTime.setText(compete.getReportId() != null ? compete.getReportId().getName() : Utils.time(f > 0 ? f : 0));
         txtTime.setGravity(Gravity.END);
 
         // Return the completed view to render on screen
