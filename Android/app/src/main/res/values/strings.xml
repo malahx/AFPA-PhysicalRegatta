@@ -23,4 +23,7 @@
     <string name="select_class">Select a class</string>
     <string name="result">Result</string>
     <string name="hide_no_result">Hide sailboat with no result entered</string>
+    <string name="lbl_info">Select the regatta on which you want to see more information.</string>
+    <string name="regatta">Regatta</string>
+    <string name="date">Date</string>
 </resources>

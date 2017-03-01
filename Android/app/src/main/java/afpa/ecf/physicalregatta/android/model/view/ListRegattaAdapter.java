@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,10 @@ public class ListRegattaAdapter extends ArrayAdapter<Regatta> {
         final TextView title = (TextView) convertView.findViewById(R.id.title);
         final TextView date = (TextView) convertView.findViewById(R.id.date);
         title.setText(regatta.getName());
-        date.setText(regatta.getDate().toString());
+
+        SimpleDateFormat format = getContext().getResources().getConfiguration().locale.toString().split("_")[0] == "en" ? new SimpleDateFormat("MM/dd/yyyy") : new SimpleDateFormat("dd/MM/yyyy");
+
+        date.setText(format.format(regatta.getDate()));
         date.setGravity(Gravity.END);
 
         // Return the completed view to render on screen

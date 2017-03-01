@@ -2,13 +2,7 @@ package afpa.ecf.physicalregatta.android.api;
 
 import android.os.AsyncTask;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -20,9 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
-import afpa.ecf.physicalregatta.android.MainActivity;
+import afpa.ecf.physicalregatta.android.Utils;
 import afpa.ecf.physicalregatta.android.model.Regatta;
 
 /**
@@ -79,7 +72,7 @@ public class RegattaProvider extends AsyncTask<String, Void, ArrayList<Regatta>>
             }
             urlConnection.disconnect();
             Type listType = new TypeToken<ArrayList<Regatta>>(){}.getType();
-            regattas = MainActivity.GSON.fromJson(sb.toString(), listType);
+            regattas = Utils.GSON.fromJson(sb.toString(), listType);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

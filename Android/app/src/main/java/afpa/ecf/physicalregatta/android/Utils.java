@@ -1,10 +1,15 @@
 package afpa.ecf.physicalregatta.android;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * Created by Afpa on 28/02/2017.
  */
 
 public class Utils {
+
+    public final static Gson GSON = new GsonBuilder().create();
 
     public static String time(float time) {
         final float hour = time / 3600;

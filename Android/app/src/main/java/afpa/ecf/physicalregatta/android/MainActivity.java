@@ -1,12 +1,10 @@
 package afpa.ecf.physicalregatta.android;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -18,7 +16,9 @@ import afpa.ecf.physicalregatta.android.model.view.ListRegattaClicked;
 
 public class MainActivity extends ListMenu {
 
-    public final static Gson GSON = new GsonBuilder().create();
+    TextView txtChallenge;
+    TextView lblDate;
+    TextView lblInfo;
     ListView lstRegatta;
     ListRegattaAdapter adpRegatta;
 
@@ -26,6 +26,11 @@ public class MainActivity extends ListMenu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        txtChallenge = (TextView) findViewById(R.id.txtChallenge);
+        lblDate = (TextView) findViewById(R.id.lblDate);
+        lblInfo = (TextView) findViewById(R.id.lblInfo);
+        lstRegatta = (ListView) findViewById(R.id.lstRegatta);
 
         ArrayList<Regatta> regattas = new ArrayList<>();
         RegattaProvider data = new RegattaProvider();
@@ -40,18 +45,21 @@ public class MainActivity extends ListMenu {
             e.printStackTrace();
         }
 
-        TextView lblChallenge = (TextView) findViewById(R.id.lblChallenge);
 
         if (regattas.size() == 0) {
-            lblChallenge.setText(this.getString(R.string.no_challenge));
+            txtChallenge.setText(this.getString(R.string.no_challenge));
         } else {
-            lblChallenge.setText(this.getString(R.string.lbl_challenge) + " " + regattas.get(0).getChallengeId().getName());
-            lstRegatta = (ListView) findViewById(R.id.lstRegatta);
+            txtChallenge.setText(regattas.get(0).getChallengeId().getName());
+            txtChallenge.setGravity(Gravity.END);
+
             adpRegatta = new ListRegattaAdapter(this, regattas);
             lstRegatta.setAdapter(adpRegatta);
 
             lstRegatta.setOnItemClickListener(new ListRegattaClicked());
         }
+
+        lblDate.setGravity(Gravity.END);
+        lblInfo.setGravity(Gravity.CENTER);
     }
 
     @Override
