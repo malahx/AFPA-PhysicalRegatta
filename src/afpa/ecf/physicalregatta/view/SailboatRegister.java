@@ -5,8 +5,11 @@
  */
 package afpa.ecf.physicalregatta.view;
 
+import afpa.ecf.algo.Algo;
 import afpa.ecf.physicalregatta.Utils;
+import afpa.ecf.physicalregatta.model.Club;
 import afpa.ecf.physicalregatta.model.Owner;
+import afpa.ecf.physicalregatta.model.Person;
 import afpa.ecf.physicalregatta.model.Sailboat;
 import afpa.ecf.physicalregatta.model.Sbclass;
 import afpa.ecf.physicalregatta.model.Serie;
@@ -25,10 +28,14 @@ import javax.swing.JOptionPane;
  */
 public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Listener {
 
+    // Propriétaire de saisie
+    Owner emptyOwner;
+
     // Model des ComboBox
-    private final ComboBoxModel<Owner> cboOwnerModel;
+    private ComboBoxModel<Owner> cboOwnerModel;
     private final ComboBoxModel<Serie> cboSerieModel;
     private ComboBoxModel<Sbclass> cboClassModel;
+    private final ComboBoxModel<Club> cboClubModel;
 
     // Liste des classes complète
     List<Sbclass> sailboatClass;
@@ -45,17 +52,26 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         Query qOwner = em.createNamedQuery("Owner.findAll");
         Query qSerie = em.createNamedQuery("Serie.findAll");
         Query qSbclass = em.createNamedQuery("Sbclass.findAll");
+        Query qClub = em.createNamedQuery("Club.findAll");
 
         List<Owner> owners = qOwner.getResultList();
         List<Serie> series = qSerie.getResultList();
+        List<Club> clubs = qClub.getResultList();
         sailboatClass = qSbclass.getResultList();
+
+        emptyOwner = new Owner(-1);
+        Person emptyPers = new Person(-1, "Saisir un nouveau", "propriétaire", null, null);
+        emptyOwner.setPersonId(emptyPers);
+        owners.add(emptyOwner);
 
         cboOwnerModel = new DefaultComboBoxModel(owners.toArray());
         cboSerieModel = new DefaultComboBoxModel(series.toArray());
         cboClassModel = new DefaultComboBoxModel(filterClassBy(sailboatClass, series.get(0)));
+        cboClubModel = new DefaultComboBoxModel(clubs.toArray());
 
         initComponents();
 
+        panOwner.setVisible(false);
         super.setLocationRelativeTo(null);
 
         // Vérifications des données
@@ -76,6 +92,20 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         btnAdd = new javax.swing.JButton();
         txtInfo = new javax.swing.JTextField();
         panContent = new javax.swing.JPanel();
+        panOwner = new javax.swing.JPanel();
+        lblFirstname = new javax.swing.JLabel();
+        txtFirstname = new javax.swing.JTextField();
+        lblLastname = new javax.swing.JLabel();
+        txtLastname = new javax.swing.JTextField();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        lblClub = new javax.swing.JLabel();
+        cboClub = new javax.swing.JComboBox<>();
+        btnCancel = new javax.swing.JButton();
+        btnAddOwner = new javax.swing.JButton();
+        panSail = new javax.swing.JPanel();
         lblSail = new javax.swing.JLabel();
         txtSail = new javax.swing.JTextField();
         lblOwner = new javax.swing.JLabel();
@@ -90,7 +120,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         setAutoRequestFocus(false);
         setMaximumSize(new java.awt.Dimension(600, 550));
         setMinimumSize(new java.awt.Dimension(540, 230));
-        setPreferredSize(new java.awt.Dimension(600, 300));
+        setPreferredSize(new java.awt.Dimension(600, 320));
         getContentPane().setLayout(new java.awt.BorderLayout(10, 10));
 
         panFooter.setLayout(new java.awt.BorderLayout(10, 10));
@@ -99,6 +129,11 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCloseMouseClicked(evt);
+            }
+        });
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
             }
         });
         panFooter.add(btnClose, java.awt.BorderLayout.CENTER);
@@ -123,26 +158,106 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
 
         panContent.setBorder(javax.swing.BorderFactory.createTitledBorder("Saisissez les informations ci-dessous"));
         panContent.setMinimumSize(new java.awt.Dimension(536, 62));
+        panContent.setPreferredSize(new java.awt.Dimension(1045, 250));
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT);
         flowLayout1.setAlignOnBaseline(true);
         panContent.setLayout(flowLayout1);
+
+        panOwner.setMinimumSize(new java.awt.Dimension(200, 200));
+        panOwner.setPreferredSize(new java.awt.Dimension(510, 175));
+
+        lblFirstname.setText("Prénom");
+        lblFirstname.setPreferredSize(new java.awt.Dimension(150, 15));
+        panOwner.add(lblFirstname);
+
+        txtFirstname.setPreferredSize(new java.awt.Dimension(350, 23));
+        txtFirstname.getDocument().addDocumentListener(new TxtUpdate(this));
+        panOwner.add(txtFirstname);
+
+        lblLastname.setText("Nom");
+        lblLastname.setPreferredSize(new java.awt.Dimension(150, 15));
+        panOwner.add(lblLastname);
+
+        txtLastname.setPreferredSize(new java.awt.Dimension(350, 23));
+        txtLastname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLastnameActionPerformed(evt);
+            }
+        });
+        txtLastname.getDocument().addDocumentListener(new TxtUpdate(this));
+        panOwner.add(txtLastname);
+
+        lblEmail.setText("Email");
+        lblEmail.setPreferredSize(new java.awt.Dimension(150, 15));
+        panOwner.add(lblEmail);
+
+        txtEmail.setPreferredSize(new java.awt.Dimension(350, 23));
+        txtEmail.getDocument().addDocumentListener(new TxtUpdate(this));
+        panOwner.add(txtEmail);
+
+        lblPassword.setText("Mot de passe");
+        lblPassword.setPreferredSize(new java.awt.Dimension(150, 15));
+        panOwner.add(lblPassword);
+
+        txtPassword.setPreferredSize(new java.awt.Dimension(350, 21));
+        txtPassword.getDocument().addDocumentListener(new TxtUpdate(this));
+        panOwner.add(txtPassword);
+
+        lblClub.setText("Club");
+        lblClub.setMaximumSize(new java.awt.Dimension(150, 15));
+        lblClub.setMinimumSize(new java.awt.Dimension(150, 15));
+        lblClub.setPreferredSize(new java.awt.Dimension(150, 15));
+        panOwner.add(lblClub);
+
+        cboClub.setModel(cboClubModel);
+        cboClub.setToolTipText("Veuillez sélectionner une classe");
+        cboClub.setPreferredSize(new java.awt.Dimension(350, 25));
+        cboClub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboClubActionPerformed(evt);
+            }
+        });
+        panOwner.add(cboClub);
+
+        btnCancel.setText("Annuler");
+        btnCancel.setPreferredSize(new java.awt.Dimension(100, 31));
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+        panOwner.add(btnCancel);
+
+        btnAddOwner.setText("Ajouter le propriétaire");
+        btnAddOwner.setEnabled(false);
+        btnAddOwner.setPreferredSize(new java.awt.Dimension(400, 31));
+        btnAddOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddOwnerActionPerformed(evt);
+            }
+        });
+        panOwner.add(btnAddOwner);
+
+        panContent.add(panOwner);
+
+        panSail.setPreferredSize(new java.awt.Dimension(510, 125));
 
         lblSail.setText("Numéro de voile");
         lblSail.setMaximumSize(new java.awt.Dimension(150, 15));
         lblSail.setMinimumSize(new java.awt.Dimension(150, 15));
         lblSail.setPreferredSize(new java.awt.Dimension(150, 15));
-        panContent.add(lblSail);
+        panSail.add(lblSail);
 
         txtSail.setToolTipText("Veuillez saisir un numéro de voile");
         txtSail.setPreferredSize(new java.awt.Dimension(350, 23));
         txtSail.getDocument().addDocumentListener(new TxtUpdate(this));
-        panContent.add(txtSail);
+        panSail.add(txtSail);
 
         lblOwner.setText("Propriétaire");
         lblOwner.setMaximumSize(new java.awt.Dimension(150, 15));
         lblOwner.setMinimumSize(new java.awt.Dimension(150, 15));
         lblOwner.setPreferredSize(new java.awt.Dimension(150, 15));
-        panContent.add(lblOwner);
+        panSail.add(lblOwner);
 
         cboOwner.setModel(cboOwnerModel);
         cboOwner.setToolTipText("Veuillez sélectionner un propriétaire");
@@ -152,13 +267,13 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
                 cboOwnerActionPerformed(evt);
             }
         });
-        panContent.add(cboOwner);
+        panSail.add(cboOwner);
 
         lblSerie.setText("Série");
         lblSerie.setMaximumSize(new java.awt.Dimension(150, 15));
         lblSerie.setMinimumSize(new java.awt.Dimension(150, 15));
         lblSerie.setPreferredSize(new java.awt.Dimension(150, 15));
-        panContent.add(lblSerie);
+        panSail.add(lblSerie);
 
         cboSerie.setModel(cboSerieModel);
         cboSerie.setToolTipText("Veuillez sélectionner une série");
@@ -168,13 +283,13 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
                 cboSerieActionPerformed(evt);
             }
         });
-        panContent.add(cboSerie);
+        panSail.add(cboSerie);
 
         lblClass.setText("Classe");
         lblClass.setMaximumSize(new java.awt.Dimension(150, 15));
         lblClass.setMinimumSize(new java.awt.Dimension(150, 15));
         lblClass.setPreferredSize(new java.awt.Dimension(150, 15));
-        panContent.add(lblClass);
+        panSail.add(lblClass);
 
         cboClass.setModel(cboClassModel);
         cboClass.setToolTipText("Veuillez sélectionner une classe");
@@ -184,7 +299,9 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
                 cboClassActionPerformed(evt);
             }
         });
-        panContent.add(cboClass);
+        panSail.add(cboClass);
+
+        panContent.add(panSail);
 
         getContentPane().add(panContent, java.awt.BorderLayout.CENTER);
 
@@ -221,7 +338,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         em.getTransaction().begin();
         em.persist(s);
         em.getTransaction().commit();
-
+        
         setVisible(false);
         dispose();
 
@@ -238,8 +355,19 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
      */
     private void cboOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboOwnerActionPerformed
         checkDatas();
+        if (cboOwnerModel.getSelectedItem() != null && ((Owner) cboOwnerModel.getSelectedItem()).getId().equals(emptyOwner.getId())) {
+            setVisibleOwner(true);
+        } else {
+            setVisibleOwner(false);
+        }
         System.out.println("cboOwnerActionPerformed");
     }//GEN-LAST:event_cboOwnerActionPerformed
+
+    private void setVisibleOwner(boolean value) {
+        panOwner.setVisible(value);
+        panSail.setVisible(!value);
+        checkDatas();
+    }
 
     /**
      * *
@@ -268,6 +396,61 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         checkDatas();
         System.out.println("cboClassActionPerformed");
     }//GEN-LAST:event_cboClassActionPerformed
+
+    private void txtLastnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLastnameActionPerformed
+
+    private void cboClubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClubActionPerformed
+        checkDatas();
+        System.out.println("cboClubActionPerformed");
+    }//GEN-LAST:event_cboClubActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        setVisibleOwner(false);
+        cboOwner.setSelectedIndex(0);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnAddOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOwnerActionPerformed
+        if (!checkDatas()) {
+            return;
+        }
+
+        Owner o = new Owner();
+        Person p = new Person(0, txtFirstname.getText(), txtLastname.getText(), txtEmail.getText(), txtPassword.getPassword().toString());
+
+        o.setPersonId(p);
+        o.setClubId((Club)cboClubModel.getSelectedItem());
+
+        EntityManager em = Utils.getEntityManager();
+        em.getTransaction().begin();
+        em.persist(p);
+        em.persist(o);
+        em.getTransaction().commit();
+        em.refresh(p);
+        em.refresh(o);
+        
+        // Repeuplement des données
+        Query qOwner = em.createNamedQuery("Owner.findAll");
+        List<Owner> owners = qOwner.getResultList();
+        owners.add(emptyOwner);
+        cboOwnerModel = new DefaultComboBoxModel(owners.toArray());
+        cboOwner.setModel(cboOwnerModel);
+        
+        cboOwnerModel.setSelectedItem(o);
+        
+        txtFirstname.setText("");
+        txtLastname.setText("");
+        txtEmail.setText("");
+        txtPassword.setText("");
+        
+        setVisibleOwner(false);
+        System.out.println("btnAddOwnerClicked");
+    }//GEN-LAST:event_btnAddOwnerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,17 +489,31 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddOwner;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnClose;
     private javax.swing.JComboBox<Sbclass> cboClass;
+    private javax.swing.JComboBox<Club> cboClub;
     private javax.swing.JComboBox<Owner> cboOwner;
     private javax.swing.JComboBox<Serie> cboSerie;
     private javax.swing.JLabel lblClass;
+    private javax.swing.JLabel lblClub;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblFirstname;
+    private javax.swing.JLabel lblLastname;
     private javax.swing.JLabel lblOwner;
+    private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblSail;
     private javax.swing.JLabel lblSerie;
     private javax.swing.JPanel panContent;
     private javax.swing.JPanel panFooter;
+    private javax.swing.JPanel panOwner;
+    private javax.swing.JPanel panSail;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFirstname;
     private javax.swing.JTextField txtInfo;
+    private javax.swing.JTextField txtLastname;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtSail;
     // End of variables declaration//GEN-END:variables
 
@@ -359,39 +556,71 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
      * @return true si les données sont valides
      */
     private boolean checkDatas() {
-        String txt = txtSail.getText();
-        if (txt.isEmpty()) {
-            updateInfo("Veuillez saisir un numéro de voile");
-            return false;
-        }
-        Integer sail = Integer.parseInt(txt);
-        if (sail.equals(0)) {
-            updateInfo("Veuillez saisir un numéro de voile supérieur à 0");
-            return false;
-        }
-        if (cboOwner.getItemCount() == 0) {
-            updateInfo("/!\\ Aucun propriétaire, pensez à en ajouter un sur la page prévue à cet effet !");
-            return false;
-        }
-        if (cboSerie.getItemCount() == 0) {
-            updateInfo("/!\\ Aucune série, pensez à en ajouter une sur la page prévue à cet effet !");
-            return false;
-        }
-        if (cboClass.getItemCount() == 0) {
-            updateInfo("/!\\ Aucune classe, pensez à en ajouter une sur la page prévue à cet effet !");
-            return false;
-        }
-        if (cboOwner.getSelectedIndex() == -1) {
-            updateInfo("Veuillez sélectionner un propriétaire");
-            return false;
-        }
-        if (cboSerie.getSelectedIndex() == -1) {
-            updateInfo("Veuillez sélectionner une série");
-            return false;
-        }
-        if (cboClass.getSelectedIndex() == -1) {
-            updateInfo("Veuillez sélectionner une classe");
-            return false;
+        if (panSail.isVisible()) {
+            String txt = txtSail.getText();
+            if (txt.isEmpty()) {
+                updateInfo("Veuillez saisir un numéro de voile");
+                return false;
+            }
+            Integer sail = 0;
+            try {
+                sail = Integer.parseInt(txt);
+            } catch (Exception e) {
+                
+            }
+            if (sail.equals(0)) {
+                updateInfo("Veuillez saisir un numéro de voile supérieur à 0");
+                return false;
+            }
+            if (cboOwner.getItemCount() == 0 || (cboOwnerModel.getSelectedItem() != null && ((Owner)cboOwnerModel.getSelectedItem()).getId().equals(emptyOwner.getId()))) {
+                updateInfo("/!\\ Aucun propriétaire, pensez à en ajouter un sur la page prévue à cet effet !");
+                return false;
+            }
+            if (cboSerie.getItemCount() == 0) {
+                updateInfo("/!\\ Aucune série, pensez à en ajouter une sur la page prévue à cet effet !");
+                return false;
+            }
+            if (cboClass.getItemCount() == 0) {
+                updateInfo("/!\\ Aucune classe, pensez à en ajouter une sur la page prévue à cet effet !");
+                return false;
+            }
+            if (cboOwner.getSelectedIndex() == -1) {
+                updateInfo("Veuillez sélectionner un propriétaire");
+                return false;
+            }
+            if (cboSerie.getSelectedIndex() == -1) {
+                updateInfo("Veuillez sélectionner une série");
+                return false;
+            }
+            if (cboClass.getSelectedIndex() == -1) {
+                updateInfo("Veuillez sélectionner une classe");
+                return false;
+            }
+        } else {
+            if (txtFirstname.getText().isEmpty()) {
+                updateInfo("Veuillez saisir le prénom");
+                return false;
+            }
+            if (txtLastname.getText().isEmpty()) {
+                updateInfo("Veuillez saisir le nom");
+                return false;
+            }
+            if (txtEmail.getText().isEmpty()) {
+                updateInfo("Veuillez saisir l'email");
+                return false;
+            }
+            if (!Algo.isEmail(txtEmail.getText())) {
+                updateInfo("Veuillez saisir un email valide, exemple : jeanpascal@orange.fr");
+                return false;
+            }
+            if (txtPassword.getPassword().length == 0) {
+                updateInfo("Veuillez saisir le mot de passe");
+                return false;
+            }
+            if (cboClub.getSelectedIndex() == -1) {
+                updateInfo("Veuillez sélectionner le club");
+                return false;
+            }
         }
         updateInfo("");
         return true;
@@ -406,12 +635,24 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
      */
     private void updateInfo(String s) {
         if (s.isEmpty()) {
-            btnAdd.setEnabled(true);
+            if (panSail.isVisible()) {
+                btnAdd.setEnabled(true);
+                btnAddOwner.setEnabled(false);
+            } else {
+                btnAdd.setEnabled(false);
+                btnAddOwner.setEnabled(true);
+            }
         } else {
             btnAdd.setEnabled(false);
+            btnAddOwner.setEnabled(false);
         }
         txtInfo.setText(s);
-        btnAdd.setToolTipText(s);
+        if (panSail.isVisible()) {
+            btnAdd.setToolTipText(s);   
+        } else {
+            btnAddOwner.setToolTipText(s);
+            btnAdd.setToolTipText("Veuillez saisir le propriétaire");
+        }
     }
 
 }
