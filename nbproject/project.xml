@@ -6,6 +6,7 @@
             <name>PhysicalRegatta</name>
             <source-roots>
                 <root id="src.dir"/>
+                <root id="src.jasperproject.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>
