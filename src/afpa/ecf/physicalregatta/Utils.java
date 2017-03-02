@@ -45,10 +45,10 @@ public class Utils {
     }
 
     public static EntityManager getEntityManager() {
-        if (factory == null) {
+        if (factory == null || !factory.isOpen()) {
             factory = Persistence.createEntityManagerFactory(Settings.PERSISTENCE_UNIT_NAME);
         }
-        if (em == null) {
+        if (em == null || !em.isOpen()) {
             em = factory.createEntityManager();
         }
         return em;
