@@ -114,7 +114,7 @@ public class Owner implements Serializable {
 
     @Override
     public String toString() {
-        return personId.toString();
+        return personId.toString() + (clubId != null ? " (" + clubId.getName() + ")" : "");
     }
     
 }

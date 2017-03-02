@@ -106,7 +106,7 @@ public class Club implements Serializable {
 
     @Override
     public String toString() {
-        return "afpa.ecf.physicalregatta.model.Club[ id=" + id + " ]";
+        return name;
     }
     
 }
