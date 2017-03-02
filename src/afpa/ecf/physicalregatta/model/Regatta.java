@@ -186,7 +186,7 @@ public class Regatta implements Serializable {
 
     @Override
     public String toString() {
-        return "afpa.ecf.physicalregatta.model.Regatta[ id=" + id + " ]";
+        return name;
     }
     
 }
