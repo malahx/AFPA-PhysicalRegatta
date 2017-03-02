@@ -5,7 +5,7 @@
  */
 package afpa.ecf.physicalregatta.report;
 
-import afpa.ecf.physicalregatta.Settings;
+import afpa.ecf.physicalregatta.Utils;
 import afpa.ecf.physicalregatta.dao.ConnectDAO;
 import afpa.ecf.physicalregatta.model.Regatta;
 import afpa.ecf.physicalregatta.view.SailboatRegister;
@@ -62,7 +62,7 @@ public class StartList {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                Query qRegatta = Settings.getEntityManager().createNamedQuery("Regatta.findAll");
+                Query qRegatta = Utils.getEntityManager().createNamedQuery("Regatta.findAll");
                 List<Regatta> regattas = qRegatta.getResultList();
                 Regatta regatta = regattas.size() > 0 ? regattas.get(0) : null;
                 

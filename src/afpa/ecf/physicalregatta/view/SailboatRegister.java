@@ -5,7 +5,7 @@
  */
 package afpa.ecf.physicalregatta.view;
 
-import afpa.ecf.physicalregatta.Settings;
+import afpa.ecf.physicalregatta.Utils;
 import afpa.ecf.physicalregatta.model.Owner;
 import afpa.ecf.physicalregatta.model.Sailboat;
 import afpa.ecf.physicalregatta.model.Sbclass;
@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -41,7 +39,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     public SailboatRegister() {
 
         // Initialisation de la persistance
-        EntityManager em = Settings.getEntityManager();
+        EntityManager em = Utils.getEntityManager();
 
         // Peuplement des données
         Query qOwner = em.createNamedQuery("Owner.findAll");
@@ -219,7 +217,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         s.setOwnerId((Owner) cboOwnerModel.getSelectedItem());
         s.setClassId((Sbclass) cboClassModel.getSelectedItem());
 
-        EntityManager em = Settings.getEntityManager();
+        EntityManager em = Utils.getEntityManager();
         em.getTransaction().begin();
         em.persist(s);
         em.getTransaction().commit();

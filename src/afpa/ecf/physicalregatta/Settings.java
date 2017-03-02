@@ -18,9 +18,7 @@ public class Settings {
     public static final String JDBC_URL = "jdbc:mysql://localhost/physicalregatta?noAccessToProcedureBodies=true";
     public static final String JDBC_USER = "root";
     public static final String JDBC_PWD = "admin";
-    private static final String PERSISTENCE_UNIT_NAME = "PhysicalRegattaPU";
-    private static EntityManagerFactory factory;
-    private static EntityManager em;
+    public static final String PERSISTENCE_UNIT_NAME = "PhysicalRegattaPU";
 
     public static String getUrlAPI() {
         return "http://" + HOST + ":" + PORT + PREFIX;
@@ -32,15 +30,5 @@ public class Settings {
 
     public static String getURIRegattas() {
         return PREFIX + GET_REGATTAS;
-    }
-
-    public static EntityManager getEntityManager() {
-        if (factory == null) {
-            factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        }
-        if (em == null) {
-            em = factory.createEntityManager();
-        }
-        return em;
     }
 }

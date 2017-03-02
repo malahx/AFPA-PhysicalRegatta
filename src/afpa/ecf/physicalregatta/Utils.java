@@ -22,21 +22,13 @@ import javax.persistence.Query;
 public class Utils {
 
     // Persistance
-    private static final String PERSISTENCE_UNIT_NAME = "PhysicalRegattaPU";
     private static EntityManagerFactory factory;
+    private static EntityManager em;
 
-    
     public static Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-    
+
     public static Challenge getCurrentChallenge() {
-
-        // Initialisation de la persistance
-        if (factory == null) {
-            factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        }
-        EntityManager em = factory.createEntityManager();
-
-        Query qChallenge = em.createNamedQuery("Challenge.findAll");
+        Query qChallenge = getEntityManager().createNamedQuery("Challenge.findAll");
 
         List<Challenge> challenges = qChallenge.getResultList();
         Challenge challenge = null;
@@ -50,5 +42,15 @@ public class Utils {
 
         System.out.println("GET Regattas from the Current Challenge");
         return challenge;
+    }
+
+    public static EntityManager getEntityManager() {
+        if (factory == null) {
+            factory = Persistence.createEntityManagerFactory(Settings.PERSISTENCE_UNIT_NAME);
+        }
+        if (em == null) {
+            em = factory.createEntityManager();
+        }
+        return em;
     }
 }
