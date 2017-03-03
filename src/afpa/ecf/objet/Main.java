@@ -28,26 +28,28 @@ public class Main {
         Licencie lic3 = new Licencie("Beyou", "Jérémie", "jeremie@beyou.fr", 1976, 123458, 2017, 0);
         Commissaire com = new Commissaire("Squarcini", "Bernard", "bernard@squarcini.fr", 1955, "Corse");
 
+        // Préparation des dates du calculPoints
         Calendar cal1 = Calendar.getInstance();
         cal1.set(2017, 01, 01);
-        
+
         Calendar cal2 = Calendar.getInstance();
         cal2.set(1917, 01, 01);
-        
-        // Test de la méthode calculPoints
+
+        // Test de la méthode calculPoints avec la bonne date
         try {
             lic1.calculPoints(100, cal1);
             lic1.calculPoints(50, cal1);
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
+        // Test de la méthode calculPoints avec la mauvaise date
         try {
             lic1.calculPoints(100, cal2);
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         // Ajout du jeu d'essai dans une collection
         List<Personne> personnes = new ArrayList<>();
         personnes.add(pro1);
@@ -68,8 +70,9 @@ public class Main {
         System.out.println("Age médian : " + medAge(personnes));
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param personnes
      * @return l'age moyen
      */
@@ -81,24 +84,25 @@ public class Main {
         return ageTot / personnes.size();
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param personnes
      * @return l'age médian
      */
     public static double medAge(List<Personne> personnes) {
-        
+
         // Passage en tableau d'age
         int[] ages = new int[personnes.size()];
 
         for (int i = personnes.size() - 1; i >= 0; i--) {
             ages[i] = personnes.get(i).getAge();
         }
-        
-        // Tirage des ages
+
+        // Triage des ages
         Arrays.sort(ages);
-        
-        // Récupération de l'index du milieu
+
+        // Récupération de l'index du centre
         int i = ages.length / 2;
 
         // Calcul de l'age médian
@@ -108,5 +112,4 @@ public class Main {
             return (ages[i - 1] + ages[i]) / 2.0;
         }
     }
-
 }
