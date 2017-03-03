@@ -69,6 +69,11 @@ public class Sbclass implements Serializable {
         this.coef = coef;
     }
 
+    public Sbclass(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

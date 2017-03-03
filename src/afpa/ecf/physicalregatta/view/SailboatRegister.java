@@ -28,8 +28,12 @@ import javax.swing.JOptionPane;
  */
 public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Listener {
 
-    // Propriétaire de saisie
-    Owner emptyOwner;
+    // Objet d'information et de saisie
+    Owner newOwner;
+    Owner selectOwner;
+    Serie selectSerie;
+    Sbclass selectSbclass;
+    Club selectClub;
 
     // Model des ComboBox
     private ComboBoxModel<Owner> cboOwnerModel;
@@ -59,11 +63,26 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         List<Club> clubs = qClub.getResultList();
         sailboatClass = qSbclass.getResultList();
 
-        emptyOwner = new Owner(-1);
+        newOwner = new Owner(-2);
         Person emptyPers = new Person(-1, "Saisir un nouveau", "propriétaire", null, null);
-        emptyOwner.setPersonId(emptyPers);
-        owners.add(emptyOwner);
-
+        newOwner.setPersonId(emptyPers);
+        
+        selectOwner = new Owner(-1);
+        emptyPers = new Person(-1, "Sélectionner un", "propriétaire", null, null);
+        selectOwner.setPersonId(emptyPers);
+        
+        owners.add(0, selectOwner);
+        owners.add(newOwner);
+        
+        selectSerie = new Serie(-1, "Sélectionner une série");
+        series.add(0, selectSerie);
+        
+        selectSbclass = new Sbclass(-1, "Sélectionner une classe");
+        sailboatClass.add(0, selectSbclass);
+        
+        selectClub = new Club(-1, "Sélectionner un club");
+        clubs.add(0, selectClub);
+                
         cboOwnerModel = new DefaultComboBoxModel(owners.toArray());
         cboSerieModel = new DefaultComboBoxModel(series.toArray());
         cboClassModel = new DefaultComboBoxModel(filterClassBy(sailboatClass, series.get(0)));
@@ -355,7 +374,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
      */
     private void cboOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboOwnerActionPerformed
         checkDatas();
-        if (cboOwnerModel.getSelectedItem() != null && ((Owner) cboOwnerModel.getSelectedItem()).getId().equals(emptyOwner.getId())) {
+        if (cboOwnerModel.getSelectedItem() != null && ((Owner) cboOwnerModel.getSelectedItem()).getId().equals(newOwner.getId())) {
             setVisibleOwner(true);
         } else {
             setVisibleOwner(false);
@@ -437,7 +456,8 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
         // Repeuplement des données
         Query qOwner = em.createNamedQuery("Owner.findAll");
         List<Owner> owners = qOwner.getResultList();
-        owners.add(emptyOwner);
+        owners.add(0, selectOwner);
+        owners.add(newOwner);
         cboOwnerModel = new DefaultComboBoxModel(owners.toArray());
         cboOwner.setModel(cboOwnerModel);
         
@@ -529,7 +549,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
     private Sbclass[] filterClassBy(List<Sbclass> sailboatClass, Serie serie) {
         List<Sbclass> sbclass = new ArrayList<>();
         for (Sbclass c : sailboatClass) {
-            if (c.getSerieId().getId().equals(serie.getId())) {
+            if (c.getId().equals(-1) || c.getSerieId().getId().equals(serie.getId())) {
                 sbclass.add(c);
             }
         }
@@ -572,27 +592,15 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
                 updateInfo("Veuillez saisir un numéro de voile supérieur à 0");
                 return false;
             }
-            if (cboOwner.getItemCount() == 0 || (cboOwnerModel.getSelectedItem() != null && ((Owner)cboOwnerModel.getSelectedItem()).getId().equals(emptyOwner.getId()))) {
-                updateInfo("/!\\ Aucun propriétaire, pensez à en ajouter un sur la page prévue à cet effet !");
-                return false;
-            }
-            if (cboSerie.getItemCount() == 0) {
-                updateInfo("/!\\ Aucune série, pensez à en ajouter une sur la page prévue à cet effet !");
-                return false;
-            }
-            if (cboClass.getItemCount() == 0) {
-                updateInfo("/!\\ Aucune classe, pensez à en ajouter une sur la page prévue à cet effet !");
-                return false;
-            }
-            if (cboOwner.getSelectedIndex() == -1) {
+            if (cboOwner.getItemCount() == 0 || cboOwner.getSelectedIndex() == -1 || (cboOwnerModel.getSelectedItem() != null && ((Owner)cboOwnerModel.getSelectedItem()).getId().equals(-1))) {
                 updateInfo("Veuillez sélectionner un propriétaire");
                 return false;
             }
-            if (cboSerie.getSelectedIndex() == -1) {
+            if (cboSerie.getItemCount() == 0 || cboSerie.getSelectedIndex() == -1 || (cboSerieModel.getSelectedItem() != null && ((Serie)cboSerieModel.getSelectedItem()).getId().equals(-1))) {
                 updateInfo("Veuillez sélectionner une série");
                 return false;
             }
-            if (cboClass.getSelectedIndex() == -1) {
+            if (cboClass.getItemCount() == 0 || cboClass.getSelectedIndex() == -1 || (cboClassModel.getSelectedItem() != null && ((Sbclass)cboClassModel.getSelectedItem()).getId().equals(-1))) {
                 updateInfo("Veuillez sélectionner une classe");
                 return false;
             }
@@ -617,7 +625,7 @@ public class SailboatRegister extends javax.swing.JFrame implements TxtUpdate.Li
                 updateInfo("Veuillez saisir le mot de passe");
                 return false;
             }
-            if (cboClub.getSelectedIndex() == -1) {
+            if (cboClass.getItemCount() == 0 || cboClub.getSelectedIndex() == -1 || (cboClubModel.getSelectedItem() != null && ((Club)cboClubModel.getSelectedItem()).getId().equals(-1))) {
                 updateInfo("Veuillez sélectionner le club");
                 return false;
             }
