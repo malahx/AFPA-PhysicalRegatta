@@ -39,7 +39,7 @@ BEGIN
         FROM compete co 
         INNER JOIN sailboat s 
         ON s.id = co.sailboat_id 
-        INNER JOIN class cl 
+        INNER JOIN sbclass cl 
         ON cl.id = s.class_id 
         WHERE co.regatta_id = NEW.regatta_id
         AND s.class_id = class_id_sailboat
