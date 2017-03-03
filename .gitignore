@@ -32,3 +32,6 @@ nbproject/private/
 # Dist
 src/META-INF/persistence.xml
 /dist/
+
+# LibreOffice
+.~*
