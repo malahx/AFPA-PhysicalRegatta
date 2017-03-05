@@ -15,13 +15,13 @@
     <string name="lbl_distance">Distance :</string>
     <string name="lbl_info">Sélectionner la régatte dont vous souhaitez obtenir des renseignements</string>
     <string name="lbl_jury">Jury :</string>
-    <string name="lbl_regatta">Régatte :</string>
+    <string name="lbl_regatta">Régate :</string>
     <string name="lbl_serie">Série :</string>
     <string name="no_challenge">Aucun challenge trouvé !</string>
     <string name="num_sail">N° Voile</string>
     <string name="owner">Porpriétaire (N°Voile)</string>
     <string name="position">Position</string>
-    <string name="regatta">Régatte</string>
+    <string name="regatta">Régate</string>
     <string name="result">Résultat</string>
     <string name="select_class">Sélectionner une classe</string>
     <string name="select_serie">Sélectionner une série</string>
