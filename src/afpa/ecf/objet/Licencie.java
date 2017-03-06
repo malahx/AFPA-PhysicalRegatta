@@ -39,7 +39,6 @@ public class Licencie extends Personne {
      */
     public void calculPoints(int nombre, Calendar cal) throws Exception {
         if (anneeLicence != cal.get(Calendar.YEAR)) {
-            System.out.println(cal.get(Calendar.YEAR));
             throw new Exception();
         }
         pointsFFV += nombre;

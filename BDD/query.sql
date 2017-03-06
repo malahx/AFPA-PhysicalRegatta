@@ -8,9 +8,12 @@ GROUP BY c.name
 
 # Requête 2
 
-SELECT p.firstname AS FIRSTNAME, 
-	p.lastname AS LASTNAME, 
-	e.num_licence AS LICENCE
+SELECT r.name AS REGATTA,
+        r.date AS REGATTA,
+        s.num_sail AS SAILBOAT,
+        p.firstname AS FIRSTNAME, 
+        p.lastname AS LASTNAME, 
+        e.num_licence AS LICENCE
 FROM crew cr
 INNER JOIN entrant e
 ON e.id = cr.entrant_id
@@ -18,6 +21,10 @@ INNER JOIN person p
 ON p.id = e.person_id
 INNER JOIN compete co
 ON co.id = cr.compete_id
+INNER JOIN regatta r
+ON r.id = co.regatta_id
+INNER JOIN sailboat s
+ON s.id = co.sailboat_id
 WHERE co.regatta_id = 3
 
 # Requête 3
